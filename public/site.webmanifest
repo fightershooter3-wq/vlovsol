@@ -1,0 +1,21 @@
+{
+  "name": "Garvit More Things",
+  "short_name": "Garvit",
+  "description": "Content Creator & YouTuber - Creating diverse and engaging content",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1a2e",
+  "theme_color": "#ef4444",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

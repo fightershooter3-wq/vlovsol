@@ -1,0 +1,14 @@
+# To deploy YOUR portfolio (not a template), you need to:
+
+1. Login to Vercel CLI first
+2. Then deploy your actual portfolio files
+
+Run these commands:
+npx vercel login
+(Enter your email: fightershooter3@gmail.com)
+(Check your email and click the verification link)
+
+Then:
+npx vercel --prod
+
+This will deploy YOUR actual portfolio with EternalG AI!
