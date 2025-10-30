@@ -1,18 +1,26 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Menu, X, Youtube, Mail, ExternalLink, ArrowRight, Play, Users, Zap, Instagram, Twitter, Linkedin, Bot, MessageSquare, Sparkles, Moon, Sun } from 'lucide-react';
+import { Menu, X, Youtube, Mail, ExternalLink, ArrowRight, Play, Users, Zap, Instagram, Twitter, Linkedin, Bot, MessageSquare, Sparkles, Moon, Sun, Code2, Cpu, Terminal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(true);
   const [scrollY, setScrollY] = useState(0);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
   }, []);
 
   useEffect(() => {
@@ -60,7 +68,7 @@ export default function Home() {
       name: 'EternalG AI - The Ultimate AI Assistant',
       description: 'The most advanced AI combining ChatGPT-4o and Google Gemini. Solves JEE Advanced, Gaokao, and any complex problem. Supports text, voice, and image inputs. Better than any AI in the world!',
       icon: '✨',
-      color: 'from-purple-600 via-pink-500 to-blue-500',
+      color: 'from-cyan-400 via-blue-500 to-purple-600',
       chatUrl: '/eternalg-ai',
       features: ['ChatGPT-4o + Gemini Pro', 'Solves JEE/Gaokao Exams', 'Voice & Image Support', 'World Knowledge', 'Math & Science Expert', 'Developed by Garvit Sharma']
     },
@@ -69,7 +77,7 @@ export default function Home() {
       name: 'PrimeG AI BOT FOR DOPAMINE CLEANING',
       description: 'Your AI assistant for dopamine detox and productivity enhancement. Get personalized advice and strategies to reduce digital distractions.',
       icon: '🧠',
-      color: 'from-purple-500 to-pink-500',
+      color: 'from-purple-500 via-pink-500 to-red-500',
       chatUrl: 'https://chat.lindy.ai/home/?templateId=68f640a13d97445e1ccad835',
       features: ['Dopamine Detox Tips', 'Productivity Coaching', '24/7 Availability', 'Personalized Strategies']
     }
@@ -79,11 +87,10 @@ export default function Home() {
     <div style={{
       minHeight: '100vh',
       background: darkMode 
-        ? 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)'
-        : 'linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 50%, #bcccdc 100%)',
+        ? '#000000'
+        : '#ffffff',
       position: 'relative',
-      
-      transition: 'background 0.5s ease'
+      overflow: 'hidden'
     }}>
       <style jsx global>{`
         @keyframes fadeInUp {
@@ -97,70 +104,119 @@ export default function Home() {
           }
         }
 
+        @keyframes neonPulse {
+          0%, 100% {
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.8),
+                         0 0 20px rgba(0, 255, 255, 0.6),
+                         0 0 30px rgba(0, 255, 255, 0.4),
+                         0 0 40px rgba(0, 255, 255, 0.2);
+          }
+          50% {
+            text-shadow: 0 0 20px rgba(0, 255, 255, 1),
+                         0 0 30px rgba(0, 255, 255, 0.8),
+                         0 0 40px rgba(0, 255, 255, 0.6),
+                         0 0 50px rgba(0, 255, 255, 0.4),
+                         0 0 60px rgba(0, 255, 255, 0.2);
+          }
+        }
+
+        @keyframes borderGlow {
+          0%, 100% {
+            box-shadow: 0 0 5px rgba(0, 255, 255, 0.5),
+                        0 0 10px rgba(0, 255, 255, 0.3),
+                        inset 0 0 5px rgba(0, 255, 255, 0.2);
+          }
+          50% {
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.8),
+                        0 0 20px rgba(0, 255, 255, 0.5),
+                        0 0 30px rgba(0, 255, 255, 0.3),
+                        inset 0 0 10px rgba(0, 255, 255, 0.3);
+          }
+        }
+
+        @keyframes gridMove {
+          0% {
+            transform: translateY(0);
+          }
+          100% {
+            transform: translateY(50px);
+          }
+        }
+
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-20px);
+          }
+        }
+
         .fade-in-up {
           animation: fadeInUp 0.6s ease-out forwards;
         }
 
-        .scroll-reveal {
-          opacity: 1;
-          transform: translateY(0);
-          transition: all 0.6s ease-out;
+        .neon-text {
+          animation: neonPulse 2s ease-in-out infinite;
         }
 
-        .scroll-reveal.revealed {
-          opacity: 1;
-          transform: translateY(0);
+        .border-glow {
+          animation: borderGlow 2s ease-in-out infinite;
         }
       `}</style>
 
-      {/* Animated background effects with parallax */}
+      {/* Animated Grid Background */}
       <div style={{
         position: 'fixed',
         inset: 0,
         zIndex: 0,
+        opacity: darkMode ? 0.15 : 0.05,
+        backgroundImage: darkMode
+          ? 'linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px)'
+          : 'linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px)',
+        backgroundSize: '50px 50px',
+        animation: 'gridMove 20s linear infinite'
+      }}></div>
+
+      {/* Mouse Follow Glow */}
+      <div style={{
+        position: 'fixed',
+        width: '600px',
+        height: '600px',
+        borderRadius: '50%',
+        background: darkMode
+          ? 'radial-gradient(circle, rgba(0, 255, 255, 0.15) 0%, transparent 70%)'
+          : 'radial-gradient(circle, rgba(0, 200, 255, 0.1) 0%, transparent 70%)',
+        left: mousePosition.x - 300,
+        top: mousePosition.y - 300,
         pointerEvents: 'none',
-        transform: `translateY(${scrollY * 0.5}px)`
-      }}>
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: '-16px',
-          width: '384px',
-          height: '384px',
-          background: darkMode 
-            ? 'radial-gradient(circle, rgba(168, 85, 247, 0.4) 0%, transparent 70%)'
-            : 'radial-gradient(circle, rgba(168, 85, 247, 0.2) 0%, transparent 70%)',
-          borderRadius: '50%',
-          filter: 'blur(60px)',
-          animation: 'blob 7s infinite'
-        }}></div>
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          right: '-16px',
-          width: '384px',
-          height: '384px',
-          background: darkMode
-            ? 'radial-gradient(circle, rgba(239, 68, 68, 0.4) 0%, transparent 70%)'
-            : 'radial-gradient(circle, rgba(239, 68, 68, 0.2) 0%, transparent 70%)',
-          borderRadius: '50%',
-          filter: 'blur(60px)',
-          animation: 'blob 7s infinite 2s'
-        }}></div>
-        <div style={{
-          position: 'absolute',
-          bottom: '-32px',
-          left: '80px',
-          width: '384px',
-          height: '384px',
-          background: darkMode
-            ? 'radial-gradient(circle, rgba(59, 130, 246, 0.4) 0%, transparent 70%)'
-            : 'radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%)',
-          borderRadius: '50%',
-          filter: 'blur(60px)',
-          animation: 'blob 7s infinite 4s'
-        }}></div>
-      </div>
+        zIndex: 1,
+        transition: 'left 0.3s ease, top 0.3s ease',
+        filter: 'blur(40px)'
+      }}></div>
+
+      {/* Floating Particles */}
+      {[...Array(20)].map((_, i) => (
+        <div
+          key={i}
+          style={{
+            position: 'fixed',
+            width: '2px',
+            height: '2px',
+            background: darkMode ? '#00ffff' : '#0088ff',
+            borderRadius: '50%',
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            opacity: Math.random() * 0.5 + 0.2,
+            animation: `float ${Math.random() * 3 + 2}s ease-in-out infinite`,
+            animationDelay: `${Math.random() * 2}s`,
+            zIndex: 1,
+            boxShadow: darkMode
+              ? '0 0 10px rgba(0, 255, 255, 0.8)'
+              : '0 0 10px rgba(0, 136, 255, 0.8)'
+          }}
+        ></div>
+      ))}
 
       <div style={{ position: 'relative', zIndex: 10 }}>
         {/* Navigation */}
@@ -169,493 +225,422 @@ export default function Home() {
           top: 0,
           width: '100%',
           background: darkMode 
-            ? 'rgba(15, 23, 42, 0.8)'
-            : 'rgba(255, 255, 255, 0.9)',
+            ? 'rgba(0, 0, 0, 0.85)'
+            : 'rgba(255, 255, 255, 0.85)',
           backdropFilter: 'blur(20px)',
-          borderBottom: darkMode 
-            ? '1px solid rgba(71, 85, 105, 0.5)'
-            : '1px solid rgba(203, 213, 225, 0.5)',
+          borderBottom: darkMode
+            ? '1px solid rgba(0, 255, 255, 0.2)'
+            : '1px solid rgba(0, 136, 255, 0.2)',
           zIndex: 50,
-          transition: 'all 0.3s ease'
+          boxShadow: darkMode
+            ? '0 4px 20px rgba(0, 255, 255, 0.1)'
+            : '0 4px 20px rgba(0, 136, 255, 0.1)'
         }}>
           <div style={{
-            maxWidth: '1152px',
+            maxWidth: '1280px',
             margin: '0 auto',
-            padding: '0 16px'
+            padding: '0 24px'
           }}>
             <div style={{
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              height: '64px'
+              height: '72px'
             }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <div style={{ fontSize: '24px' }}>🎬</div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <div style={{
-                  fontSize: '20px',
-                  fontWeight: 'bold',
-                  background: 'linear-gradient(to right, #ef4444, #a855f7)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text'
+                  width: '40px',
+                  height: '40px',
+                  background: darkMode
+                    ? 'linear-gradient(135deg, #00ffff, #0088ff)'
+                    : 'linear-gradient(135deg, #0088ff, #00ccff)',
+                  borderRadius: '8px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  boxShadow: darkMode
+                    ? '0 0 20px rgba(0, 255, 255, 0.5)'
+                    : '0 0 20px rgba(0, 136, 255, 0.5)'
+                }}>
+                  <Terminal size={24} color="#000" />
+                </div>
+                <div style={{
+                  fontSize: '24px',
+                  fontWeight: '700',
+                  color: darkMode ? '#00ffff' : '#0088ff',
+                  letterSpacing: '1px',
+                  textShadow: darkMode
+                    ? '0 0 10px rgba(0, 255, 255, 0.5)'
+                    : '0 0 10px rgba(0, 136, 255, 0.5)'
                 }}>We Love Solutions</div>
               </div>
               <div style={{
                 display: 'flex',
-                gap: '32px',
-                alignItems: 'center',
-                color: darkMode ? '#cbd5e1' : '#475569'
+                gap: '40px',
+                alignItems: 'center'
               }}>
-                <a href="/about" style={{ color: darkMode ? '#cbd5e1' : '#334155', textDecoration: 'none', fontWeight: '500' }}>About</a>
-                <a href="#videos" style={{ color: darkMode ? '#cbd5e1' : '#334155', textDecoration: 'none', fontWeight: '500' }}>Videos</a>
-                <a href="#chatbots" style={{ color: darkMode ? '#cbd5e1' : '#334155', textDecoration: 'none', fontWeight: '500' }}>AI Chatbots</a>
-                <a href="#contact" style={{ color: darkMode ? '#cbd5e1' : '#334155', textDecoration: 'none', fontWeight: '500' }}>Contact</a>
-                <a href="/channels" style={{ color: darkMode ? '#cbd5e1' : '#334155', textDecoration: 'none', fontWeight: '500' }}>Channels</a>
+                <a href="/about" style={{
+                  color: darkMode ? '#ffffff' : '#000000',
+                  textDecoration: 'none',
+                  fontWeight: '500',
+                  fontSize: '15px',
+                  letterSpacing: '0.5px',
+                  transition: 'all 0.3s',
+                  position: 'relative'
+                }} onMouseEnter={(e) => {
+                  e.currentTarget.style.color = darkMode ? '#00ffff' : '#0088ff';
+                  e.currentTarget.style.textShadow = darkMode ? '0 0 10px rgba(0, 255, 255, 0.8)' : '0 0 10px rgba(0, 136, 255, 0.8)';
+                }} onMouseLeave={(e) => {
+                  e.currentTarget.style.color = darkMode ? '#ffffff' : '#000000';
+                  e.currentTarget.style.textShadow = 'none';
+                }}>About</a>
+                <a href="#videos" style={{
+                  color: darkMode ? '#ffffff' : '#000000',
+                  textDecoration: 'none',
+                  fontWeight: '500',
+                  fontSize: '15px',
+                  letterSpacing: '0.5px',
+                  transition: 'all 0.3s'
+                }} onMouseEnter={(e) => {
+                  e.currentTarget.style.color = darkMode ? '#00ffff' : '#0088ff';
+                  e.currentTarget.style.textShadow = darkMode ? '0 0 10px rgba(0, 255, 255, 0.8)' : '0 0 10px rgba(0, 136, 255, 0.8)';
+                }} onMouseLeave={(e) => {
+                  e.currentTarget.style.color = darkMode ? '#ffffff' : '#000000';
+                  e.currentTarget.style.textShadow = 'none';
+                }}>Videos</a>
+                <a href="#chatbots" style={{
+                  color: darkMode ? '#ffffff' : '#000000',
+                  textDecoration: 'none',
+                  fontWeight: '500',
+                  fontSize: '15px',
+                  letterSpacing: '0.5px',
+                  transition: 'all 0.3s'
+                }} onMouseEnter={(e) => {
+                  e.currentTarget.style.color = darkMode ? '#00ffff' : '#0088ff';
+                  e.currentTarget.style.textShadow = darkMode ? '0 0 10px rgba(0, 255, 255, 0.8)' : '0 0 10px rgba(0, 136, 255, 0.8)';
+                }} onMouseLeave={(e) => {
+                  e.currentTarget.style.color = darkMode ? '#ffffff' : '#000000';
+                  e.currentTarget.style.textShadow = 'none';
+                }}>AI Chatbots</a>
+                <a href="#contact" style={{
+                  color: darkMode ? '#ffffff' : '#000000',
+                  textDecoration: 'none',
+                  fontWeight: '500',
+                  fontSize: '15px',
+                  letterSpacing: '0.5px',
+                  transition: 'all 0.3s'
+                }} onMouseEnter={(e) => {
+                  e.currentTarget.style.color = darkMode ? '#00ffff' : '#0088ff';
+                  e.currentTarget.style.textShadow = darkMode ? '0 0 10px rgba(0, 255, 255, 0.8)' : '0 0 10px rgba(0, 136, 255, 0.8)';
+                }} onMouseLeave={(e) => {
+                  e.currentTarget.style.color = darkMode ? '#ffffff' : '#000000';
+                  e.currentTarget.style.textShadow = 'none';
+                }}>Contact</a>
+                <a href="/channels" style={{
+                  color: darkMode ? '#ffffff' : '#000000',
+                  textDecoration: 'none',
+                  fontWeight: '500',
+                  fontSize: '15px',
+                  letterSpacing: '0.5px',
+                  transition: 'all 0.3s'
+                }} onMouseEnter={(e) => {
+                  e.currentTarget.style.color = darkMode ? '#00ffff' : '#0088ff';
+                  e.currentTarget.style.textShadow = darkMode ? '0 0 10px rgba(0, 255, 255, 0.8)' : '0 0 10px rgba(0, 136, 255, 0.8)';
+                }} onMouseLeave={(e) => {
+                  e.currentTarget.style.color = darkMode ? '#ffffff' : '#000000';
+                  e.currentTarget.style.textShadow = 'none';
+                }}>Channels</a>
                 <button
                   onClick={() => setDarkMode(!darkMode)}
                   style={{
-                    padding: '8px',
+                    padding: '10px',
                     borderRadius: '8px',
-                    background: darkMode ? 'rgba(71, 85, 105, 0.5)' : 'rgba(203, 213, 225, 0.5)',
-                    border: 'none',
+                    background: darkMode
+                      ? 'rgba(0, 255, 255, 0.1)'
+                      : 'rgba(0, 136, 255, 0.1)',
+                    border: darkMode
+                      ? '1px solid rgba(0, 255, 255, 0.3)'
+                      : '1px solid rgba(0, 136, 255, 0.3)',
                     cursor: 'pointer',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    transition: 'all 0.3s ease'
+                    transition: 'all 0.3s ease',
+                    boxShadow: darkMode
+                      ? '0 0 10px rgba(0, 255, 255, 0.2)'
+                      : '0 0 10px rgba(0, 136, 255, 0.2)'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = darkMode ? 'rgba(0, 255, 255, 0.2)' : 'rgba(0, 136, 255, 0.2)';
+                    e.currentTarget.style.boxShadow = darkMode ? '0 0 20px rgba(0, 255, 255, 0.4)' : '0 0 20px rgba(0, 136, 255, 0.4)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = darkMode ? 'rgba(0, 255, 255, 0.1)' : 'rgba(0, 136, 255, 0.1)';
+                    e.currentTarget.style.boxShadow = darkMode ? '0 0 10px rgba(0, 255, 255, 0.2)' : '0 0 10px rgba(0, 136, 255, 0.2)';
                   }}
                   aria-label="Toggle dark mode"
                 >
-                  {darkMode ? <Sun size={20} color="#fbbf24" /> : <Moon size={20} color="#6366f1" />}
+                  {darkMode ? <Sun size={20} color="#00ffff" /> : <Moon size={20} color="#0088ff" />}
                 </button>
               </div>
             </div>
           </div>
         </nav>
 
-        {/* Hero Section with Video Background */}
+        {/* Hero Section */}
         <section style={{
-          position: 'relative',
-          paddingTop: '128px',
-          paddingBottom: '80px',
-          padding: '128px 16px 80px',
+          paddingTop: '160px',
+          paddingBottom: '120px',
+          padding: '160px 24px 120px',
           minHeight: '100vh',
           display: 'flex',
           alignItems: 'center',
-          overflow: 'hidden'
+          position: 'relative'
         }} className="fade-in-up">
-          {/* Video Background */}
           <div style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            zIndex: -1,
-            overflow: 'hidden'
-          }}>
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              style={{
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                minWidth: '100%',
-                minHeight: '100%',
-                width: 'auto',
-                height: 'auto',
-                transform: 'translate(-50%, -50%)',
-                objectFit: 'cover',
-                filter: darkMode ? 'brightness(0.3)' : 'brightness(0.5)'
-              }}
-            >
-              <source src="/videos/hero-background.mp4" type="video/mp4" />
-            </video>
-            {/* Dark gradient overlay */}
-            <div style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              background: darkMode
-                ? 'linear-gradient(135deg, rgba(26, 26, 46, 0.85) 0%, rgba(22, 33, 62, 0.8) 50%, rgba(15, 52, 96, 0.85) 100%)'
-                : 'linear-gradient(135deg, rgba(240, 244, 248, 0.9) 0%, rgba(217, 226, 236, 0.85) 50%, rgba(188, 204, 220, 0.9) 100%)'
-            }}></div>
-          </div>
-
-          <div style={{
-            maxWidth: '1152px',
+            maxWidth: '1280px',
             margin: '0 auto',
-            position: 'relative',
-            zIndex: 1
+            width: '100%'
           }}>
             <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: '48px',
-              alignItems: 'center'
+              textAlign: 'center',
+              marginBottom: '60px'
             }}>
-              <div>
-                <h1 style={{
-                  fontSize: '48px',
-                  fontWeight: 'bold',
-                  color: darkMode ? 'white' : '#0f172a',
-                  marginBottom: '24px',
-                  lineHeight: '1.2',
-                  textShadow: darkMode ? '0 4px 20px rgba(0, 0, 0, 0.5)' : '0 2px 10px rgba(255, 255, 255, 0.8)'
+              <div style={{
+                display: 'inline-block',
+                padding: '8px 20px',
+                background: darkMode
+                  ? 'rgba(0, 255, 255, 0.1)'
+                  : 'rgba(0, 136, 255, 0.1)',
+                border: darkMode
+                  ? '1px solid rgba(0, 255, 255, 0.3)'
+                  : '1px solid rgba(0, 136, 255, 0.3)',
+                borderRadius: '50px',
+                marginBottom: '32px',
+                boxShadow: darkMode
+                  ? '0 0 20px rgba(0, 255, 255, 0.2)'
+                  : '0 0 20px rgba(0, 136, 255, 0.2)'
+              }}>
+                <span style={{
+                  color: darkMode ? '#00ffff' : '#0088ff',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  letterSpacing: '1px',
+                  textTransform: 'uppercase'
                 }}>
-                  Welcome to{' '}
-                  <span style={{
-                    background: 'linear-gradient(to right, #ef4444, #a855f7, #3b82f6)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text'
-                  }}>
-                    We Love Solutions
-                  </span>
-                </h1>
-                <p style={{
-                  fontSize: '20px',
-                  color: darkMode ? '#e2e8f0' : '#1e293b',
-                  marginBottom: '32px',
-                  lineHeight: '1.6',
-                  textShadow: darkMode ? '0 2px 10px rgba(0, 0, 0, 0.5)' : '0 1px 3px rgba(255, 255, 255, 0.8)',
-                  fontWeight: '500'
+                  <Code2 size={16} style={{ display: 'inline', marginRight: '8px', verticalAlign: 'middle' }} />
+                  Next-Gen Content Platform
+                </span>
+              </div>
+              
+              <h1 style={{
+                fontSize: '72px',
+                fontWeight: '800',
+                color: darkMode ? '#ffffff' : '#000000',
+                marginBottom: '24px',
+                lineHeight: '1.1',
+                letterSpacing: '-2px'
+              }}>
+                Welcome to{' '}
+                <span className="neon-text" style={{
+                  color: darkMode ? '#00ffff' : '#0088ff',
+                  display: 'block',
+                  marginTop: '16px'
                 }}>
-                  Creating diverse, entertaining, and engaging content. From trailers to lifestyle videos, I bring you "Any Thing! You Want" on my channel.
-                </p>
-                <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-                  <a
-                    href="https://www.youtube.com/@GARVIT_MORE_THING"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                      background: 'linear-gradient(to right, #dc2626, #b91c1c)',
-                      color: 'white',
-                      padding: '12px 24px',
-                      borderRadius: '8px',
-                      textDecoration: 'none',
-                      fontWeight: '500',
-                      boxShadow: '0 10px 25px rgba(239, 68, 68, 0.5)',
-                      transition: 'transform 0.3s ease',
-                      cursor: 'pointer'
-                    }}
-                    onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-                    onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
-                  >
-                    <Youtube size={20} />
-                    Subscribe on YouTube
-                  </a>
-                  <button style={{
+                  We Love Solutions
+                </span>
+              </h1>
+              
+              <p style={{
+                fontSize: '22px',
+                color: darkMode ? '#a0a0a0' : '#666666',
+                marginBottom: '48px',
+                maxWidth: '800px',
+                margin: '0 auto 48px',
+                lineHeight: '1.6',
+                fontWeight: '400'
+              }}>
+                Creating diverse, entertaining, and engaging content powered by cutting-edge technology. From trailers to lifestyle videos, experience the future of digital content.
+              </p>
+              
+              <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
+                <a
+                  href="https://www.youtube.com/@GARVIT_MORE_THING"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="border-glow"
+                  style={{
                     display: 'inline-flex',
                     alignItems: 'center',
-                    gap: '8px',
-                    background: darkMode ? 'rgba(255, 255, 255, 0.2)' : 'rgba(15, 23, 42, 0.8)',
-                    color: 'white',
-                    padding: '12px 24px',
+                    gap: '12px',
+                    background: darkMode
+                      ? 'linear-gradient(135deg, #00ffff, #0088ff)'
+                      : 'linear-gradient(135deg, #0088ff, #00ccff)',
+                    color: '#000000',
+                    padding: '16px 32px',
                     borderRadius: '8px',
-                    border: darkMode ? '1px solid rgba(255, 255, 255, 0.3)' : '1px solid rgba(15, 23, 42, 0.9)',
+                    textDecoration: 'none',
+                    fontWeight: '700',
+                    fontSize: '16px',
+                    letterSpacing: '0.5px',
+                    border: 'none',
                     cursor: 'pointer',
-                    fontWeight: '500',
-                    backdropFilter: 'blur(10px)',
-                    transition: 'all 0.3s ease'
+                    transition: 'all 0.3s ease',
+                    textTransform: 'uppercase'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'scale(1.05)';
-                    e.currentTarget.style.background = darkMode ? 'rgba(255, 255, 255, 0.3)' : 'rgba(15, 23, 42, 0.9)';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    e.currentTarget.style.boxShadow = darkMode
+                      ? '0 10px 40px rgba(0, 255, 255, 0.5)'
+                      : '0 10px 40px rgba(0, 136, 255, 0.5)';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'scale(1)';
-                    e.currentTarget.style.background = darkMode ? 'rgba(255, 255, 255, 0.2)' : 'rgba(15, 23, 42, 0.8)';
-                  }}>
-                    Explore Videos
-                    <ArrowRight size={18} />
-                  </button>
-                </div>
+                    e.currentTarget.style.transform = 'translateY(0)';
+                  }}
+                >
+                  <Youtube size={20} />
+                  Subscribe Now
+                </a>
+                <button style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '12px',
+                  background: 'transparent',
+                  color: darkMode ? '#00ffff' : '#0088ff',
+                  padding: '16px 32px',
+                  borderRadius: '8px',
+                  border: darkMode
+                    ? '2px solid rgba(0, 255, 255, 0.5)'
+                    : '2px solid rgba(0, 136, 255, 0.5)',
+                  cursor: 'pointer',
+                  fontWeight: '700',
+                  fontSize: '16px',
+                  letterSpacing: '0.5px',
+                  transition: 'all 0.3s ease',
+                  textTransform: 'uppercase'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = darkMode ? 'rgba(0, 255, 255, 0.1)' : 'rgba(0, 136, 255, 0.1)';
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = darkMode
+                    ? '0 10px 40px rgba(0, 255, 255, 0.3)'
+                    : '0 10px 40px rgba(0, 136, 255, 0.3)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'transparent';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}>
+                  Explore Content
+                  <ArrowRight size={20} />
+                </button>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <div style={{ position: 'relative' }}>
-                  {/* Animated Neon Glow Effect */}
+            </div>
+
+            {/* Tech Stats Grid */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+              gap: '24px',
+              marginTop: '80px'
+            }}>
+              {[
+                { icon: <Users size={32} />, value: '1,715', label: 'Subscribers', color: darkMode ? '#00ffff' : '#0088ff' },
+                { icon: <Play size={32} />, value: '80+', label: 'Videos', color: darkMode ? '#00ffff' : '#0088ff' },
+                { icon: <Cpu size={32} />, value: 'AI', label: 'Powered', color: darkMode ? '#00ffff' : '#0088ff' }
+              ].map((stat, index) => (
+                <div
+                  key={index}
+                  style={{
+                    background: darkMode
+                      ? 'rgba(0, 255, 255, 0.05)'
+                      : 'rgba(0, 136, 255, 0.05)',
+                    border: darkMode
+                      ? '1px solid rgba(0, 255, 255, 0.2)'
+                      : '1px solid rgba(0, 136, 255, 0.2)',
+                    borderRadius: '12px',
+                    padding: '32px',
+                    textAlign: 'center',
+                    transition: 'all 0.3s ease',
+                    cursor: 'pointer'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = darkMode ? 'rgba(0, 255, 255, 0.1)' : 'rgba(0, 136, 255, 0.1)';
+                    e.currentTarget.style.transform = 'translateY(-5px)';
+                    e.currentTarget.style.boxShadow = darkMode
+                      ? '0 10px 30px rgba(0, 255, 255, 0.2)'
+                      : '0 10px 30px rgba(0, 136, 255, 0.2)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = darkMode ? 'rgba(0, 255, 255, 0.05)' : 'rgba(0, 136, 255, 0.05)';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = 'none';
+                  }}
+                >
                   <div style={{
-                    position: 'absolute',
-                    inset: '-8px',
-                    borderRadius: '50%',
-                    background: 'linear-gradient(45deg, #ef4444, #a855f7, #3b82f6, #10b981, #ef4444)',
-                    backgroundSize: '300% 300%',
-                    animation: 'neonGlow 3s ease infinite, rotate 8s linear infinite',
-                    filter: 'blur(20px)',
-                    opacity: 0.8,
-                    zIndex: 0
-                  }}></div>
-                  
-                  {/* Secondary Glow Layer */}
-                  <div style={{
-                    position: 'absolute',
-                    inset: '-4px',
-                    borderRadius: '50%',
-                    background: 'linear-gradient(90deg, #ef4444, #f59e0b, #10b981, #3b82f6, #a855f7, #ef4444)',
-                    backgroundSize: '400% 400%',
-                    animation: 'neonGlow 2s ease infinite reverse',
-                    filter: 'blur(10px)',
-                    opacity: 0.9,
-                    zIndex: 1
-                  }}></div>
-                  
-                  {/* Photo Container with Border */}
-                  <div style={{
-                    position: 'relative',
-                    width: '256px',
-                    height: '256px',
-                    borderRadius: '50%',
-                    border: '4px solid rgba(255, 255, 255, 0.9)',
-                    boxShadow: '0 0 30px rgba(239, 68, 68, 0.6), 0 0 60px rgba(168, 85, 247, 0.4), 0 0 90px rgba(59, 130, 246, 0.3)',
-                    overflow: 'hidden',
-                    zIndex: 2,
-                    animation: 'borderPulse 2s ease infinite'
+                    color: stat.color,
+                    marginBottom: '16px',
+                    display: 'flex',
+                    justifyContent: 'center'
                   }}>
-                    <img
-                      src="/images/garvit-photo.jpg"
-                      alt="Garvit Sharma"
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                        borderRadius: '50%'
-                      }}
-                    />
+                    {stat.icon}
                   </div>
+                  <div style={{
+                    fontSize: '42px',
+                    fontWeight: '800',
+                    color: darkMode ? '#ffffff' : '#000000',
+                    marginBottom: '8px',
+                    letterSpacing: '-1px'
+                  }}>{stat.value}</div>
+                  <div style={{
+                    fontSize: '14px',
+                    color: darkMode ? '#808080' : '#666666',
+                    fontWeight: '600',
+                    letterSpacing: '1px',
+                    textTransform: 'uppercase'
+                  }}>{stat.label}</div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Stats Section */}
-        <section style={{
-          padding: '64px 16px',
-          background: darkMode 
-            ? 'rgba(15, 23, 42, 0.5)'
-            : 'rgba(255, 255, 255, 0.7)',
-          backdropFilter: 'blur(20px)',
-          borderTop: darkMode 
-            ? '1px solid rgba(71, 85, 105, 0.5)'
-            : '1px solid rgba(203, 213, 225, 0.5)',
-          borderBottom: darkMode 
-            ? '1px solid rgba(71, 85, 105, 0.5)'
-            : '1px solid rgba(203, 213, 225, 0.5)'
-        }} className="scroll-reveal">
-          <div style={{
-            maxWidth: '1152px',
-            margin: '0 auto'
-          }}>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-              gap: '32px'
-            }}>
-              <div style={{ textAlign: 'center' }}>
-                <div style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: '80px',
-                  height: '80px',
-                  borderRadius: '50%',
-                  background: 'linear-gradient(135deg, #ef4444, #a855f7)',
-                  marginBottom: '16px'
-                }}>
-                  <Users size={40} color="white" />
-                </div>
-                <div style={{
-                  fontSize: '36px',
-                  fontWeight: 'bold',
-                  color: darkMode ? 'white' : '#0f172a',
-                  marginBottom: '8px'
-                }}>1,715</div>
-                <div style={{ color: darkMode ? '#94a3b8' : '#475569', fontWeight: '500' }}>Subscribers</div>
-              </div>
-              <div style={{ textAlign: 'center' }}>
-                <div style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: '80px',
-                  height: '80px',
-                  borderRadius: '50%',
-                  background: 'linear-gradient(135deg, #ef4444, #a855f7)',
-                  marginBottom: '16px'
-                }}>
-                  <Play size={40} color="white" />
-                </div>
-                <div style={{
-                  fontSize: '36px',
-                  fontWeight: 'bold',
-                  color: darkMode ? 'white' : '#0f172a',
-                  marginBottom: '8px'
-                }}>80+</div>
-                <div style={{ color: darkMode ? '#94a3b8' : '#475569', fontWeight: '500' }}>Videos</div>
-              </div>
-              <div style={{ textAlign: 'center' }}>
-                <div style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: '80px',
-                  height: '80px',
-                  borderRadius: '50%',
-                  background: 'linear-gradient(135deg, #ef4444, #a855f7)',
-                  marginBottom: '16px'
-                }}>
-                  <Zap size={40} color="white" />
-                </div>
-                <div style={{
-                  fontSize: '36px',
-                  fontWeight: 'bold',
-                  color: darkMode ? 'white' : '#0f172a',
-                  marginBottom: '8px'
-                }}>Diverse</div>
-                <div style={{ color: darkMode ? '#94a3b8' : '#475569', fontWeight: '500' }}>Content Focus</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* About Section */}
-        <section id="about" style={{
-          position: 'relative',
-          zIndex: 1,
-          padding: '80px 16px'
-        }} className="scroll-reveal">
-          <div style={{
-            maxWidth: '1152px',
-            margin: '0 auto'
-          }}>
-            <h2 style={{
-              fontSize: '36px',
-              fontWeight: 'bold',
-              color: darkMode ? 'white' : '#0f172a',
-              marginBottom: '48px',
-              background: 'linear-gradient(to right, #ef4444, #a855f7)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text'
-            }}>About Me</h2>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: '48px'
-            }}>
-              <div>
-                <p style={{
-                  fontSize: '18px',
-                  color: darkMode ? '#cbd5e1' : '#334155',
-                  marginBottom: '24px',
-                  lineHeight: '1.6',
-                  fontWeight: '400'
-                }}>
-                  I'm Garvit, a content creator passionate about bringing diverse and entertaining videos to my audience. My channel, "We Love Solutions," is all about exploring different topics and creating content that resonates with viewers.
-                </p>
-                <p style={{
-                  fontSize: '18px',
-                  color: darkMode ? '#cbd5e1' : '#334155',
-                  marginBottom: '24px',
-                  lineHeight: '1.6',
-                  fontWeight: '400'
-                }}>
-                  With over 380 subscribers and 32 videos, I've built a community of people who enjoy varied content - from trailers and lifestyle videos to creative projects. My mission is simple: deliver quality content that entertains and engages.
-                </p>
-                <p style={{
-                  fontSize: '18px',
-                  color: darkMode ? '#cbd5e1' : '#334155',
-                  lineHeight: '1.6',
-                  fontWeight: '400'
-                }}>
-                  Whether it's celebrating milestones with my subscribers or exploring new creative directions, I'm committed to growing and improving my craft every day.
-                </p>
-              </div>
-              <div style={{
-                background: darkMode 
-                  ? 'linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9))'
-                  : 'linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(241, 245, 249, 0.95))',
-                borderRadius: '8px',
-                padding: '32px',
-                border: darkMode 
-                  ? '1px solid rgba(71, 85, 105, 0.5)'
-                  : '1px solid rgba(203, 213, 225, 0.5)',
-                boxShadow: darkMode 
-                  ? '0 20px 50px rgba(0, 0, 0, 0.3)'
-                  : '0 20px 50px rgba(0, 0, 0, 0.1)'
-              }}>
-                <h3 style={{
-                  fontSize: '24px',
-                  fontWeight: '600',
-                  color: darkMode ? 'white' : '#0f172a',
-                  marginBottom: '24px'
-                }}>Channel Highlights</h3>
-                <ul style={{
-                  listStyle: 'none',
-                  padding: 0,
-                  margin: 0
-                }}>
-                  {[
-                    'Diverse content covering multiple genres',
-                    'Growing community of engaged subscribers',
-                    'Regular uploads and consistent quality',
-                    'Creative storytelling and production'
-                  ].map((item, index) => (
-                    <li key={index} style={{
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                      gap: '12px',
-                      marginBottom: '16px'
-                    }}>
-                      <span style={{
-                        color: '#ef4444',
-                        fontWeight: 'bold',
-                        fontSize: '20px'
-                      }}>✓</span>
-                      <span style={{ color: darkMode ? '#cbd5e1' : '#334155', fontWeight: '400' }}>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              ))}
             </div>
           </div>
         </section>
 
         {/* Videos Section */}
         <section id="videos" style={{
-          position: 'relative',
-          zIndex: 1,
-          padding: '80px 16px',
-          background: darkMode 
-            ? 'rgba(15, 23, 42, 0.3)'
-            : 'rgba(255, 255, 255, 0.5)'
-        }} className="scroll-reveal">
+          padding: '120px 24px',
+          position: 'relative'
+        }}>
           <div style={{
-            maxWidth: '1152px',
+            maxWidth: '1280px',
             margin: '0 auto'
           }}>
-            <h2 style={{
-              fontSize: '36px',
-              fontWeight: 'bold',
-              color: darkMode ? 'white' : '#0f172a',
-              marginBottom: '48px',
-              background: 'linear-gradient(to right, #ef4444, #a855f7)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text'
-            }}>Latest Videos</h2>
+            <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+              <h2 style={{
+                fontSize: '48px',
+                fontWeight: '800',
+                color: darkMode ? '#ffffff' : '#000000',
+                marginBottom: '16px',
+                letterSpacing: '-1px'
+              }}>
+                Latest <span style={{ color: darkMode ? '#00ffff' : '#0088ff' }}>Content</span>
+              </h2>
+              <div style={{
+                width: '80px',
+                height: '4px',
+                background: darkMode
+                  ? 'linear-gradient(90deg, #00ffff, #0088ff)'
+                  : 'linear-gradient(90deg, #0088ff, #00ccff)',
+                margin: '0 auto',
+                borderRadius: '2px',
+                boxShadow: darkMode
+                  ? '0 0 20px rgba(0, 255, 255, 0.5)'
+                  : '0 0 20px rgba(0, 136, 255, 0.5)'
+              }}></div>
+            </div>
+
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
               gap: '32px'
             }}>
               {videos.map((video) => (
@@ -665,34 +650,37 @@ export default function Home() {
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
-                    background: darkMode 
-                      ? 'rgba(30, 41, 59, 0.5)'
-                      : 'rgba(255, 255, 255, 0.8)',
-                    backdropFilter: 'blur(20px)',
-                    borderRadius: '8px',
-                    border: darkMode 
-                      ? '1px solid rgba(71, 85, 105, 0.5)'
-                      : '1px solid rgba(203, 213, 225, 0.5)',
-                    
+                    background: darkMode
+                      ? 'rgba(0, 255, 255, 0.05)'
+                      : 'rgba(0, 136, 255, 0.05)',
+                    border: darkMode
+                      ? '1px solid rgba(0, 255, 255, 0.2)'
+                      : '1px solid rgba(0, 136, 255, 0.2)',
+                    borderRadius: '12px',
+                    overflow: 'hidden',
                     cursor: 'pointer',
-                    transition: 'transform 0.3s, box-shadow 0.3s',
+                    transition: 'all 0.3s ease',
                     textDecoration: 'none',
                     display: 'block'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'scale(1.05)';
-                    e.currentTarget.style.boxShadow = '0 20px 50px rgba(239, 68, 68, 0.3)';
+                    e.currentTarget.style.transform = 'translateY(-8px)';
+                    e.currentTarget.style.boxShadow = darkMode
+                      ? '0 20px 40px rgba(0, 255, 255, 0.2)'
+                      : '0 20px 40px rgba(0, 136, 255, 0.2)';
+                    e.currentTarget.style.borderColor = darkMode ? 'rgba(0, 255, 255, 0.5)' : 'rgba(0, 136, 255, 0.5)';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'scale(1)';
+                    e.currentTarget.style.transform = 'translateY(0)';
                     e.currentTarget.style.boxShadow = 'none';
+                    e.currentTarget.style.borderColor = darkMode ? 'rgba(0, 255, 255, 0.2)' : 'rgba(0, 136, 255, 0.2)';
                   }}
                 >
                   <div style={{
                     position: 'relative',
-                    height: '192px',
-                    
-                    background: '#000'
+                    height: '200px',
+                    background: '#000',
+                    overflow: 'hidden'
                   }}>
                     <img
                       src={video.thumbnail}
@@ -701,7 +689,8 @@ export default function Home() {
                       style={{
                         width: '100%',
                         height: '100%',
-                        objectFit: 'cover'
+                        objectFit: 'cover',
+                        transition: 'transform 0.3s ease'
                       }}
                     />
                     <div style={{
@@ -711,190 +700,141 @@ export default function Home() {
                       transform: 'translate(-50%, -50%)',
                       width: '60px',
                       height: '60px',
-                      background: 'rgba(239, 68, 68, 0.9)',
+                      background: darkMode
+                        ? 'rgba(0, 255, 255, 0.9)'
+                        : 'rgba(0, 136, 255, 0.9)',
                       borderRadius: '50%',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      transition: 'all 0.3s'
+                      boxShadow: darkMode
+                        ? '0 0 30px rgba(0, 255, 255, 0.6)'
+                        : '0 0 30px rgba(0, 136, 255, 0.6)'
                     }}>
-                      <Play size={28} color="white" fill="white" />
+                      <Play size={28} color="#000" fill="#000" />
                     </div>
                   </div>
                   <div style={{ padding: '24px' }}>
                     <h3 style={{
                       fontSize: '18px',
-                      fontWeight: 'bold',
-                      color: darkMode ? 'white' : '#0f172a',
+                      fontWeight: '700',
+                      color: darkMode ? '#ffffff' : '#000000',
                       marginBottom: '12px',
                       lineHeight: '1.4'
                     }}>{video.title}</h3>
                     <div style={{
                       display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center'
+                      alignItems: 'center',
+                      gap: '8px',
+                      color: darkMode ? '#00ffff' : '#0088ff',
+                      fontSize: '14px',
+                      fontWeight: '600'
                     }}>
-                      <span style={{
-                        fontSize: '14px',
-                        color: darkMode ? '#94a3b8' : '#475569',
-                        fontWeight: '500'
-                      }}>Watch on YouTube</span>
-                      <ExternalLink size={18} color={darkMode ? '#94a3b8' : '#475569'} />
+                      Watch Now
+                      <ExternalLink size={16} />
                     </div>
                   </div>
                 </a>
               ))}
-            </div>
-            <div style={{
-              marginTop: '48px',
-              textAlign: 'center'
-            }}>
-              <a
-                href="https://www.youtube.com/@GARVIT_MORE_THING"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  border: darkMode 
-                    ? '1px solid rgba(71, 85, 105, 0.5)'
-                    : '1px solid rgba(203, 213, 225, 0.5)',
-                  color: darkMode ? 'white' : '#0f172a',
-                  padding: '12px 24px',
-                  borderRadius: '8px',
-                  textDecoration: 'none',
-                  fontWeight: '500',
-                  background: darkMode 
-                    ? 'rgba(51, 65, 85, 0.5)'
-                    : 'rgba(255, 255, 255, 0.8)',
-                  transition: 'all 0.3s ease',
-                  cursor: 'pointer'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'scale(1.05)';
-                  e.currentTarget.style.background = darkMode ? 'rgba(71, 85, 105, 0.5)' : 'rgba(241, 245, 249, 0.9)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'scale(1)';
-                  e.currentTarget.style.background = darkMode ? 'rgba(51, 65, 85, 0.5)' : 'rgba(255, 255, 255, 0.8)';
-                }}
-              >
-                View All Videos on YouTube
-              </a>
             </div>
           </div>
         </section>
 
         {/* AI Chatbots Section */}
         <section id="chatbots" style={{
-          position: 'relative',
-          zIndex: 1,
-          padding: '80px 16px'
-        }} className="scroll-reveal">
+          padding: '120px 24px',
+          background: darkMode
+            ? 'rgba(0, 255, 255, 0.02)'
+            : 'rgba(0, 136, 255, 0.02)'
+        }}>
           <div style={{
-            maxWidth: '1152px',
+            maxWidth: '1280px',
             margin: '0 auto'
           }}>
-            <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+            <div style={{ textAlign: 'center', marginBottom: '60px' }}>
               <h2 style={{
-                fontSize: '36px',
-                fontWeight: 'bold',
-                color: darkMode ? 'white' : '#0f172a',
+                fontSize: '48px',
+                fontWeight: '800',
+                color: darkMode ? '#ffffff' : '#000000',
                 marginBottom: '16px',
-                background: 'linear-gradient(to right, #ef4444, #a855f7)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text'
-              }}>AI Chatbots</h2>
+                letterSpacing: '-1px'
+              }}>
+                AI <span style={{ color: darkMode ? '#00ffff' : '#0088ff' }}>Chatbots</span>
+              </h2>
+              <div style={{
+                width: '80px',
+                height: '4px',
+                background: darkMode
+                  ? 'linear-gradient(90deg, #00ffff, #0088ff)'
+                  : 'linear-gradient(90deg, #0088ff, #00ccff)',
+                margin: '0 auto 24px',
+                borderRadius: '2px',
+                boxShadow: darkMode
+                  ? '0 0 20px rgba(0, 255, 255, 0.5)'
+                  : '0 0 20px rgba(0, 136, 255, 0.5)'
+              }}></div>
               <p style={{
                 fontSize: '20px',
-                color: darkMode ? '#cbd5e1' : '#334155',
+                color: darkMode ? '#a0a0a0' : '#666666',
                 maxWidth: '700px',
-                margin: '0 auto',
-                fontWeight: '400'
+                margin: '0 auto'
               }}>
-                Interact with my AI-powered chatbots designed to help you with various tasks and provide intelligent assistance.
+                Powered by advanced AI technology to assist you 24/7
               </p>
             </div>
 
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
               gap: '32px'
             }}>
               {chatbots.map((bot) => (
                 <div
                   key={bot.id}
                   style={{
-                    background: darkMode 
-                      ? 'linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9))'
-                      : 'linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(241, 245, 249, 0.95))',
+                    background: darkMode
+                      ? 'rgba(0, 255, 255, 0.05)'
+                      : 'rgba(0, 136, 255, 0.05)',
+                    border: darkMode
+                      ? '1px solid rgba(0, 255, 255, 0.2)'
+                      : '1px solid rgba(0, 136, 255, 0.2)',
                     borderRadius: '16px',
-                    padding: '32px',
-                    border: darkMode 
-                      ? '1px solid rgba(71, 85, 105, 0.5)'
-                      : '1px solid rgba(203, 213, 225, 0.5)',
-                    boxShadow: darkMode 
-                      ? '0 20px 50px rgba(0, 0, 0, 0.3)'
-                      : '0 20px 50px rgba(0, 0, 0, 0.1)',
-                    transition: 'transform 0.3s, box-shadow 0.3s'
+                    padding: '40px',
+                    transition: 'all 0.3s ease',
+                    position: 'relative',
+                    overflow: 'hidden'
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = 'translateY(-8px)';
-                    e.currentTarget.style.boxShadow = '0 30px 60px rgba(168, 85, 247, 0.3)';
+                    e.currentTarget.style.boxShadow = darkMode
+                      ? '0 20px 50px rgba(0, 255, 255, 0.2)'
+                      : '0 20px 50px rgba(0, 136, 255, 0.2)';
+                    e.currentTarget.style.borderColor = darkMode ? 'rgba(0, 255, 255, 0.5)' : 'rgba(0, 136, 255, 0.5)';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = darkMode ? '0 20px 50px rgba(0, 0, 0, 0.3)' : '0 20px 50px rgba(0, 0, 0, 0.1)';
+                    e.currentTarget.style.boxShadow = 'none';
+                    e.currentTarget.style.borderColor = darkMode ? 'rgba(0, 255, 255, 0.2)' : 'rgba(0, 136, 255, 0.2)';
                   }}
                 >
                   <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '16px',
+                    fontSize: '48px',
                     marginBottom: '24px'
-                  }}>
-                    <div style={{
-                      width: '64px',
-                      height: '64px',
-                      borderRadius: '16px',
-                      background: `linear-gradient(135deg, ${bot.color})`,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontSize: '32px',
-                      boxShadow: '0 10px 30px rgba(168, 85, 247, 0.4)'
-                    }}>
-                      {bot.icon}
-                    </div>
-                    <div style={{ flex: 1 }}>
-                      <h3 style={{
-                        fontSize: '20px',
-                        fontWeight: 'bold',
-                        color: darkMode ? 'white' : '#0f172a',
-                        marginBottom: '4px',
-                        lineHeight: '1.3'
-                      }}>{bot.name}</h3>
-                      <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '6px',
-                        color: '#a855f7',
-                        fontSize: '14px'
-                      }}>
-                        <Sparkles size={14} />
-                        <span>AI Powered</span>
-                      </div>
-                    </div>
-                  </div>
-
+                  }}>{bot.icon}</div>
+                  
+                  <h3 style={{
+                    fontSize: '24px',
+                    fontWeight: '800',
+                    color: darkMode ? '#ffffff' : '#000000',
+                    marginBottom: '16px',
+                    letterSpacing: '-0.5px'
+                  }}>{bot.name}</h3>
+                  
                   <p style={{
-                    color: darkMode ? '#cbd5e1' : '#334155',
+                    color: darkMode ? '#a0a0a0' : '#666666',
                     marginBottom: '24px',
                     lineHeight: '1.6',
-                    fontSize: '16px',
-                    fontWeight: '400'
+                    fontSize: '15px'
                   }}>
                     {bot.description}
                   </p>
@@ -903,7 +843,7 @@ export default function Home() {
                     display: 'grid',
                     gridTemplateColumns: 'repeat(2, 1fr)',
                     gap: '12px',
-                    marginBottom: '24px'
+                    marginBottom: '32px'
                   }}>
                     {bot.features.map((feature, index) => (
                       <div
@@ -912,11 +852,12 @@ export default function Home() {
                           display: 'flex',
                           alignItems: 'center',
                           gap: '8px',
-                          color: darkMode ? '#94a3b8' : '#475569',
-                          fontSize: '14px'
+                          color: darkMode ? '#808080' : '#666666',
+                          fontSize: '13px',
+                          fontWeight: '500'
                         }}
                       >
-                        <span style={{ color: '#a855f7' }}>✓</span>
+                        <span style={{ color: darkMode ? '#00ffff' : '#0088ff', fontSize: '16px' }}>✓</span>
                         <span>{feature}</span>
                       </div>
                     ))}
@@ -931,444 +872,168 @@ export default function Home() {
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      gap: '8px',
-                      background: `linear-gradient(135deg, ${bot.color})`,
-                      color: 'white',
-                      padding: '14px 24px',
+                      gap: '12px',
+                      background: darkMode
+                        ? 'linear-gradient(135deg, #00ffff, #0088ff)'
+                        : 'linear-gradient(135deg, #0088ff, #00ccff)',
+                      color: '#000000',
+                      padding: '16px 32px',
                       borderRadius: '8px',
                       border: 'none',
                       cursor: 'pointer',
-                      fontWeight: '600',
-                      fontSize: '16px',
-                      boxShadow: '0 10px 25px rgba(168, 85, 247, 0.4)',
-                      transition: 'all 0.3s',
-                      textDecoration: 'none'
+                      fontWeight: '700',
+                      fontSize: '15px',
+                      letterSpacing: '0.5px',
+                      textDecoration: 'none',
+                      transition: 'all 0.3s ease',
+                      textTransform: 'uppercase',
+                      boxShadow: darkMode
+                        ? '0 10px 30px rgba(0, 255, 255, 0.3)'
+                        : '0 10px 30px rgba(0, 136, 255, 0.3)'
                     }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.transform = 'scale(1.05)';
-                      e.currentTarget.style.boxShadow = '0 15px 35px rgba(168, 85, 247, 0.6)';
+                      e.currentTarget.style.boxShadow = darkMode
+                        ? '0 15px 40px rgba(0, 255, 255, 0.5)'
+                        : '0 15px 40px rgba(0, 136, 255, 0.5)';
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.transform = 'scale(1)';
-                      e.currentTarget.style.boxShadow = '0 10px 25px rgba(168, 85, 247, 0.4)';
+                      e.currentTarget.style.boxShadow = darkMode
+                        ? '0 10px 30px rgba(0, 255, 255, 0.3)'
+                        : '0 10px 30px rgba(0, 136, 255, 0.3)';
                     }}
                   >
                     <MessageSquare size={20} />
-                    Chat Now
+                    Launch Chat
                   </a>
-
-                  <p style={{
-                    textAlign: 'center',
-                    color: '#64748b',
-                    fontSize: '12px',
-                    marginTop: '16px'
-                  }}>
-                    Developed by Garvit Sharma
-                  </p>
                 </div>
               ))}
-            </div>
-
-            <div style={{
-              marginTop: '48px',
-              textAlign: 'center',
-              padding: '32px',
-              background: 'rgba(168, 85, 247, 0.1)',
-              borderRadius: '12px',
-              border: '1px solid rgba(168, 85, 247, 0.3)'
-            }}>
-              <Bot size={48} color="#a855f7" style={{ marginBottom: '16px' }} />
-              <h3 style={{
-                fontSize: '24px',
-                fontWeight: 'bold',
-                color: darkMode ? 'white' : '#0f172a',
-                marginBottom: '12px'
-              }}>More Chatbots Coming Soon!</h3>
-              <p style={{
-                color: darkMode ? '#cbd5e1' : '#334155',
-                fontSize: '16px',
-                fontWeight: '400'
-              }}>
-                I'm working on creating more AI assistants to help you with different aspects of life and productivity.
-              </p>
             </div>
           </div>
         </section>
 
         {/* Contact Section */}
         <section id="contact" style={{
-          position: 'relative',
-          zIndex: 1,
-          padding: '80px 16px',
-          background: darkMode 
-            ? 'rgba(15, 23, 42, 0.3)'
-            : 'rgba(255, 255, 255, 0.5)'
-        }} className="scroll-reveal">
+          padding: '120px 24px'
+        }}>
           <div style={{
-            maxWidth: '1152px',
-            margin: '0 auto'
+            maxWidth: '1280px',
+            margin: '0 auto',
+            textAlign: 'center'
           }}>
-            <div style={{
-              maxWidth: '800px',
-              margin: '0 auto',
-              textAlign: 'center'
+            <h2 style={{
+              fontSize: '48px',
+              fontWeight: '800',
+              color: darkMode ? '#ffffff' : '#000000',
+              marginBottom: '16px',
+              letterSpacing: '-1px'
             }}>
-              <h2 style={{
-                fontSize: '36px',
-                fontWeight: 'bold',
-                color: darkMode ? 'white' : '#0f172a',
-                marginBottom: '24px',
-                background: 'linear-gradient(to right, #ef4444, #a855f7)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text'
-              }}>Get In Touch</h2>
-              <p style={{
-                fontSize: '20px',
-                color: darkMode ? '#cbd5e1' : '#334155',
-                marginBottom: '48px',
-                fontWeight: '400'
-              }}>
-                Have a collaboration idea or just want to say hello? I'd love to hear from you!
-              </p>
-              
-              {/* Social Media Links */}
-              <div style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                justifyContent: 'center',
-                gap: '32px',
-                marginBottom: '32px'
-              }}>
+              Get In <span style={{ color: darkMode ? '#00ffff' : '#0088ff' }}>Touch</span>
+            </h2>
+            <div style={{
+              width: '80px',
+              height: '4px',
+              background: darkMode
+                ? 'linear-gradient(90deg, #00ffff, #0088ff)'
+                : 'linear-gradient(90deg, #0088ff, #00ccff)',
+              margin: '0 auto 48px',
+              borderRadius: '2px',
+              boxShadow: darkMode
+                ? '0 0 20px rgba(0, 255, 255, 0.5)'
+                : '0 0 20px rgba(0, 136, 255, 0.5)'
+            }}></div>
+
+            <div style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              gap: '24px',
+              marginTop: '48px'
+            }}>
+              {[
+                { icon: <Youtube size={24} />, label: 'YouTube', url: 'https://www.youtube.com/@GARVIT_MORE_THING' },
+                { icon: <Instagram size={24} />, label: 'Instagram', url: 'https://instagram.com/iamthesharma29' },
+                { icon: <Twitter size={24} />, label: 'Twitter', url: 'https://twitter.com/FighterSho97816' },
+                { icon: <Mail size={24} />, label: 'Email', url: 'mailto:fightershooter3@gmail.com' }
+              ].map((social, index) => (
                 <a
-                  href="https://www.youtube.com/@GARVIT_MORE_THING"
+                  key={index}
+                  href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
-                    display: 'inline-flex',
+                    display: 'flex',
                     alignItems: 'center',
-                    gap: '8px',
-                    color: '#ef4444',
-                    fontSize: '18px',
-                    fontWeight: '600',
-                    textDecoration: 'none',
-                    transition: 'all 0.3s',
-                    padding: '8px 16px',
+                    gap: '12px',
+                    padding: '16px 32px',
+                    background: darkMode
+                      ? 'rgba(0, 255, 255, 0.05)'
+                      : 'rgba(0, 136, 255, 0.05)',
+                    border: darkMode
+                      ? '1px solid rgba(0, 255, 255, 0.2)'
+                      : '1px solid rgba(0, 136, 255, 0.2)',
                     borderRadius: '8px',
+                    color: darkMode ? '#00ffff' : '#0088ff',
+                    textDecoration: 'none',
+                    fontWeight: '600',
+                    fontSize: '15px',
+                    transition: 'all 0.3s ease',
                     cursor: 'pointer'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = 'rgba(239, 68, 68, 0.1)';
-                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    e.currentTarget.style.background = darkMode ? 'rgba(0, 255, 255, 0.1)' : 'rgba(0, 136, 255, 0.1)';
+                    e.currentTarget.style.transform = 'translateY(-3px)';
+                    e.currentTarget.style.boxShadow = darkMode
+                      ? '0 10px 30px rgba(0, 255, 255, 0.2)'
+                      : '0 10px 30px rgba(0, 136, 255, 0.2)';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.background = 'transparent';
+                    e.currentTarget.style.background = darkMode ? 'rgba(0, 255, 255, 0.05)' : 'rgba(0, 136, 255, 0.05)';
                     e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = 'none';
                   }}
                 >
-                  <Youtube size={24} />
-                  YouTube
+                  {social.icon}
+                  {social.label}
                 </a>
-
-                <a
-                  href="https://instagram.com/iamthesharma29"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    color: '#a855f7',
-                    fontSize: '18px',
-                    fontWeight: '600',
-                    textDecoration: 'none',
-                    transition: 'all 0.3s',
-                    padding: '8px 16px',
-                    borderRadius: '8px',
-                    cursor: 'pointer'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = 'rgba(168, 85, 247, 0.1)';
-                    e.currentTarget.style.transform = 'translateY(-2px)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = 'transparent';
-                    e.currentTarget.style.transform = 'translateY(0)';
-                  }}
-                >
-                  <Instagram size={24} />
-                  Instagram
-                </a>
-
-                <a
-                  href="https://twitter.com/FighterSho97816"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    color: '#3b82f6',
-                    fontSize: '18px',
-                    fontWeight: '600',
-                    textDecoration: 'none',
-                    transition: 'all 0.3s',
-                    padding: '8px 16px',
-                    borderRadius: '8px',
-                    cursor: 'pointer'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = 'rgba(59, 130, 246, 0.1)';
-                    e.currentTarget.style.transform = 'translateY(-2px)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = 'transparent';
-                    e.currentTarget.style.transform = 'translateY(0)';
-                  }}
-                >
-                  <Twitter size={24} />
-                  Twitter
-                </a>
-
-                <a
-                  href="mailto:fightershooter3@gmail.com"
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    color: darkMode ? '#cbd5e1' : '#334155',
-                    fontSize: '18px',
-                    fontWeight: '600',
-                    textDecoration: 'none',
-                    transition: 'all 0.3s',
-                    padding: '8px 16px',
-                    borderRadius: '8px',
-                    cursor: 'pointer'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = darkMode ? 'rgba(203, 213, 225, 0.1)' : 'rgba(51, 65, 85, 0.1)';
-                    e.currentTarget.style.transform = 'translateY(-2px)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = 'transparent';
-                    e.currentTarget.style.transform = 'translateY(0)';
-                  }}
-                >
-                  <Mail size={24} />
-                  Email
-                </a>
-              </div>
-
-              <p style={{
-                fontSize: '14px',
-                color: darkMode ? '#94a3b8' : '#64748b',
-                marginTop: '24px'
-              }}>
-                Click on any platform to connect with me!
-              </p>
+              ))}
             </div>
           </div>
         </section>
 
         {/* Footer */}
         <footer style={{
-          background: darkMode 
-            ? 'rgba(15, 23, 42, 0.8)'
-            : 'rgba(255, 255, 255, 0.9)',
+          background: darkMode
+            ? 'rgba(0, 0, 0, 0.8)'
+            : 'rgba(255, 255, 255, 0.8)',
           backdropFilter: 'blur(20px)',
-          borderTop: darkMode 
-            ? '1px solid rgba(71, 85, 105, 0.5)'
-            : '1px solid rgba(203, 213, 225, 0.5)',
-          color: darkMode ? 'white' : '#0f172a',
-          padding: '48px 16px'
+          borderTop: darkMode
+            ? '1px solid rgba(0, 255, 255, 0.2)'
+            : '1px solid rgba(0, 136, 255, 0.2)',
+          padding: '48px 24px',
+          textAlign: 'center'
         }}>
           <div style={{
-            maxWidth: '1152px',
+            maxWidth: '1280px',
             margin: '0 auto'
           }}>
             <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-              gap: '32px',
-              marginBottom: '32px'
+              fontSize: '24px',
+              fontWeight: '700',
+              color: darkMode ? '#00ffff' : '#0088ff',
+              marginBottom: '16px',
+              letterSpacing: '1px'
+            }}>We Love Solutions</div>
+            <p style={{
+              color: darkMode ? '#808080' : '#666666',
+              fontSize: '14px'
             }}>
-              <div>
-                <h3 style={{
-                  fontSize: '18px',
-                  fontWeight: 'bold',
-                  marginBottom: '16px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px'
-                }}>
-                  <span style={{ fontSize: '24px' }}>🎬</span>
-                  <span style={{
-                    background: 'linear-gradient(to right, #ef4444, #a855f7)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text'
-                  }}>We Love Solutions</span>
-                </h3>
-                <p style={{ color: darkMode ? '#94a3b8' : '#475569' }}>
-                  Creating diverse content for everyone. Any Thing! You Want.
-                </p>
-              </div>
-              <div>
-                <h4 style={{
-                  fontWeight: '600',
-                  marginBottom: '16px'
-                }}>Quick Links</h4>
-                <ul style={{
-                  listStyle: 'none',
-                  padding: 0,
-                  margin: 0,
-                  color: darkMode ? '#94a3b8' : '#475569'
-                }}>
-                  <li style={{ marginBottom: '8px' }}>
-                    <a href="/about" style={{ color: darkMode ? '#94a3b8' : '#475569', textDecoration: 'none', cursor: 'pointer' }}>About</a>
-                  </li>
-                  <li style={{ marginBottom: '8px' }}>
-                    <a href="#videos" style={{ color: darkMode ? '#94a3b8' : '#475569', textDecoration: 'none', cursor: 'pointer' }}>Videos</a>
-                  </li>
-                  <li style={{ marginBottom: '8px' }}>
-                    <a href="#chatbots" style={{ color: darkMode ? '#94a3b8' : '#475569', textDecoration: 'none', cursor: 'pointer' }}>AI Chatbots</a>
-                  </li>
-                  <li style={{ marginBottom: '8px' }}>
-                    <a href="#contact" style={{ color: darkMode ? '#94a3b8' : '#475569', textDecoration: 'none', cursor: 'pointer' }}>Contact</a>
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <h4 style={{
-                  fontWeight: '600',
-                  marginBottom: '16px'
-                }}>Connect</h4>
-                <ul style={{
-                  listStyle: 'none',
-                  padding: 0,
-                  margin: 0,
-                  color: darkMode ? '#94a3b8' : '#475569'
-                }}>
-                  <li style={{ marginBottom: '8px' }}>
-                    <a
-                      href="https://www.youtube.com/@GARVIT_MORE_THING"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{ color: darkMode ? '#94a3b8' : '#475569', textDecoration: 'none', cursor: 'pointer' }}
-                    >
-                      YouTube
-                    </a>
-                  </li>
-                  <li style={{ marginBottom: '8px' }}>
-                    <a href="https://instagram.com/iamthesharma29" target="_blank" rel="noopener noreferrer" style={{ color: darkMode ? '#94a3b8' : '#475569', textDecoration: 'none', cursor: 'pointer' }}>
-                      Instagram
-                    </a>
-                  </li>
-                  <li style={{ marginBottom: '8px' }}>
-                    <a href="https://twitter.com/FighterSho97816" target="_blank" rel="noopener noreferrer" style={{ color: darkMode ? '#94a3b8' : '#475569', textDecoration: 'none', cursor: 'pointer' }}>
-                      Twitter
-                    </a>
-                  </li>
-                  <li style={{ marginBottom: '8px' }}>
-                    <a href="mailto:fightershooter3@gmail.com" style={{ color: darkMode ? '#94a3b8' : '#475569', textDecoration: 'none', cursor: 'pointer' }}>
-                      Email
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div style={{
-              borderTop: darkMode 
-                ? '1px solid rgba(71, 85, 105, 0.5)'
-                : '1px solid rgba(203, 213, 225, 0.5)',
-              paddingTop: '32px',
-              textAlign: 'center',
-              color: darkMode ? '#94a3b8' : '#64748b'
-            }}>
-              <p>© 2025 We Love Solutions. All rights reserved.</p>
-            </div>
+              © 2025 We Love Solutions. All rights reserved.
+            </p>
           </div>
         </footer>
       </div>
-
-      <style jsx>{`
-        @keyframes blob {
-          0% {
-            transform: translate(0px, 0px) scale(1);
-          }
-          33% {
-            transform: translate(30px, -50px) scale(1.1);
-          }
-          66% {
-            transform: translate(-20px, 20px) scale(0.9);
-          }
-          100% {
-            transform: translate(0px, 0px) scale(1);
-          }
-        }
-
-        @keyframes pulse {
-          0%, 100% {
-            opacity: 0.6;
-          }
-          50% {
-            opacity: 0.8;
-          }
-        }
-
-        @keyframes neonGlow {
-          0% {
-            background-position: 0% 50%;
-          }
-          50% {
-            background-position: 100% 50%;
-          }
-          100% {
-            background-position: 0% 50%;
-          }
-        }
-
-        @keyframes rotate {
-          0% {
-            transform: rotate(0deg);
-          }
-          100% {
-            transform: rotate(360deg);
-          }
-        }
-
-        @keyframes borderPulse {
-          0%, 100% {
-            box-shadow: 0 0 30px rgba(239, 68, 68, 0.6), 0 0 60px rgba(168, 85, 247, 0.4), 0 0 90px rgba(59, 130, 246, 0.3);
-          }
-          50% {
-            box-shadow: 0 0 40px rgba(239, 68, 68, 0.8), 0 0 80px rgba(168, 85, 247, 0.6), 0 0 120px rgba(59, 130, 246, 0.5);
-          }
-        }
-      `}</style>
-
-      {/* Scroll Reveal Script */}
-      <script dangerouslySetInnerHTML={{
-        __html: `
-          document.addEventListener('DOMContentLoaded', function() {
-            const reveals = document.querySelectorAll('.scroll-reveal');
-            
-            const revealOnScroll = () => {
-              reveals.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                const windowHeight = window.innerHeight;
-                
-                if (elementTop < windowHeight - 100) {
-                  element.classList.add('revealed');
-                }
-              });
-            };
-            
-            window.addEventListener('scroll', revealOnScroll);
-            revealOnScroll();
-          });
-        `
-      }} />
     </div>
   );
 }
