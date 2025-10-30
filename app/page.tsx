@@ -198,7 +198,7 @@ export default function Home() {
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text'
-                }}>Garvit More Things</div>
+                }}>We Love Solutions</div>
               </div>
               <div style={{
                 display: 'flex',
@@ -315,7 +315,7 @@ export default function Home() {
                     WebkitTextFillColor: 'transparent',
                     backgroundClip: 'text'
                   }}>
-                    Garvit More Things
+                    We Love Solutions
                   </span>
                 </h1>
                 <p style={{
@@ -560,7 +560,7 @@ export default function Home() {
                   lineHeight: '1.6',
                   fontWeight: '400'
                 }}>
-                  I'm Garvit, a content creator passionate about bringing diverse and entertaining videos to my audience. My channel, "Garvit More Things," is all about exploring different topics and creating content that resonates with viewers.
+                  I'm Garvit, a content creator passionate about bringing diverse and entertaining videos to my audience. My channel, "We Love Solutions," is all about exploring different topics and creating content that resonates with viewers.
                 </p>
                 <p style={{
                   fontSize: '18px',
@@ -1207,7 +1207,7 @@ export default function Home() {
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                     backgroundClip: 'text'
-                  }}>Garvit More Things</span>
+                  }}>We Love Solutions</span>
                 </h3>
                 <p style={{ color: darkMode ? '#94a3b8' : '#475569' }}>
                   Creating diverse content for everyone. Any Thing! You Want.
@@ -1285,7 +1285,7 @@ export default function Home() {
               textAlign: 'center',
               color: darkMode ? '#94a3b8' : '#64748b'
             }}>
-              <p>© 2025 Garvit More Things. All rights reserved.</p>
+              <p>© 2025 We Love Solutions. All rights reserved.</p>
             </div>
           </div>
         </footer>
