@@ -93,6 +93,10 @@ export default function Home() {
       overflow: 'hidden'
     }}>
       <style jsx global>{`
+        * {
+          box-sizing: border-box;
+        }
+        
         @keyframes fadeInUp {
           from {
             opacity: 0;
@@ -108,29 +112,23 @@ export default function Home() {
           0%, 100% {
             text-shadow: 0 0 10px rgba(0, 255, 255, 0.8),
                          0 0 20px rgba(0, 255, 255, 0.6),
-                         0 0 30px rgba(0, 255, 255, 0.4),
-                         0 0 40px rgba(0, 255, 255, 0.2);
+                         0 0 30px rgba(0, 255, 255, 0.4);
           }
           50% {
             text-shadow: 0 0 20px rgba(0, 255, 255, 1),
                          0 0 30px rgba(0, 255, 255, 0.8),
-                         0 0 40px rgba(0, 255, 255, 0.6),
-                         0 0 50px rgba(0, 255, 255, 0.4),
-                         0 0 60px rgba(0, 255, 255, 0.2);
+                         0 0 40px rgba(0, 255, 255, 0.6);
           }
         }
 
         @keyframes borderGlow {
           0%, 100% {
             box-shadow: 0 0 5px rgba(0, 255, 255, 0.5),
-                        0 0 10px rgba(0, 255, 255, 0.3),
-                        inset 0 0 5px rgba(0, 255, 255, 0.2);
+                        0 0 10px rgba(0, 255, 255, 0.3);
           }
           50% {
             box-shadow: 0 0 10px rgba(0, 255, 255, 0.8),
-                        0 0 20px rgba(0, 255, 255, 0.5),
-                        0 0 30px rgba(0, 255, 255, 0.3),
-                        inset 0 0 10px rgba(0, 255, 255, 0.3);
+                        0 0 20px rgba(0, 255, 255, 0.5);
           }
         }
 
@@ -163,10 +161,16 @@ export default function Home() {
         .border-glow {
           animation: borderGlow 2s ease-in-out infinite;
         }
+
+        @media (max-width: 768px) {
+          .hide-mobile {
+            display: none !important;
+          }
+        }
       `}</style>
 
-      {/* Animated Grid Background */}
-      <div style={{
+      {/* Animated Grid Background - Hidden on mobile for performance */}
+      <div className="hide-mobile" style={{
         position: 'fixed',
         inset: 0,
         zIndex: 0,
@@ -178,8 +182,8 @@ export default function Home() {
         animation: 'gridMove 20s linear infinite'
       }}></div>
 
-      {/* Mouse Follow Glow */}
-      <div style={{
+      {/* Mouse Follow Glow - Hidden on mobile */}
+      <div className="hide-mobile" style={{
         position: 'fixed',
         width: '600px',
         height: '600px',
@@ -195,29 +199,6 @@ export default function Home() {
         filter: 'blur(40px)'
       }}></div>
 
-      {/* Floating Particles */}
-      {[...Array(20)].map((_, i) => (
-        <div
-          key={i}
-          style={{
-            position: 'fixed',
-            width: '2px',
-            height: '2px',
-            background: darkMode ? '#00ffff' : '#0088ff',
-            borderRadius: '50%',
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            opacity: Math.random() * 0.5 + 0.2,
-            animation: `float ${Math.random() * 3 + 2}s ease-in-out infinite`,
-            animationDelay: `${Math.random() * 2}s`,
-            zIndex: 1,
-            boxShadow: darkMode
-              ? '0 0 10px rgba(0, 255, 255, 0.8)'
-              : '0 0 10px rgba(0, 136, 255, 0.8)'
-          }}
-        ></div>
-      ))}
-
       <div style={{ position: 'relative', zIndex: 10 }}>
         {/* Navigation */}
         <nav style={{
@@ -225,8 +206,8 @@ export default function Home() {
           top: 0,
           width: '100%',
           background: darkMode 
-            ? 'rgba(0, 0, 0, 0.85)'
-            : 'rgba(255, 255, 255, 0.85)',
+            ? 'rgba(0, 0, 0, 0.95)'
+            : 'rgba(255, 255, 255, 0.95)',
           backdropFilter: 'blur(20px)',
           borderBottom: darkMode
             ? '1px solid rgba(0, 255, 255, 0.2)'
@@ -239,122 +220,110 @@ export default function Home() {
           <div style={{
             maxWidth: '1280px',
             margin: '0 auto',
-            padding: '0 24px'
+            padding: '0 16px'
           }}>
             <div style={{
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              height: '72px'
+              height: '64px'
             }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <div style={{
-                  width: '40px',
-                  height: '40px',
+                  width: '36px',
+                  height: '36px',
                   background: darkMode
                     ? 'linear-gradient(135deg, #00ffff, #0088ff)'
                     : 'linear-gradient(135deg, #0088ff, #00ccff)',
-                  borderRadius: '8px',
+                  borderRadius: '6px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   boxShadow: darkMode
-                    ? '0 0 20px rgba(0, 255, 255, 0.5)'
-                    : '0 0 20px rgba(0, 136, 255, 0.5)'
+                    ? '0 0 15px rgba(0, 255, 255, 0.5)'
+                    : '0 0 15px rgba(0, 136, 255, 0.5)'
                 }}>
-                  <Terminal size={24} color="#000" />
+                  <Terminal size={20} color="#000" />
                 </div>
                 <div style={{
-                  fontSize: '24px',
+                  fontSize: window.innerWidth < 768 ? '16px' : '20px',
                   fontWeight: '700',
                   color: darkMode ? '#00ffff' : '#0088ff',
-                  letterSpacing: '1px',
+                  letterSpacing: '0.5px',
                   textShadow: darkMode
                     ? '0 0 10px rgba(0, 255, 255, 0.5)'
                     : '0 0 10px rgba(0, 136, 255, 0.5)'
                 }}>We Love Solutions</div>
               </div>
+              
+              {/* Mobile Menu Button */}
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                style={{
+                  display: window.innerWidth < 768 ? 'flex' : 'none',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: '8px',
+                  background: 'transparent',
+                  border: 'none',
+                  cursor: 'pointer',
+                  color: darkMode ? '#00ffff' : '#0088ff'
+                }}
+              >
+                {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+
+              {/* Desktop Menu */}
               <div style={{
-                display: 'flex',
-                gap: '40px',
+                display: window.innerWidth < 768 ? 'none' : 'flex',
+                gap: '32px',
                 alignItems: 'center'
               }}>
                 <a href="/about" style={{
                   color: darkMode ? '#ffffff' : '#000000',
                   textDecoration: 'none',
                   fontWeight: '500',
-                  fontSize: '15px',
+                  fontSize: '14px',
                   letterSpacing: '0.5px',
-                  transition: 'all 0.3s',
-                  position: 'relative'
-                }} onMouseEnter={(e) => {
-                  e.currentTarget.style.color = darkMode ? '#00ffff' : '#0088ff';
-                  e.currentTarget.style.textShadow = darkMode ? '0 0 10px rgba(0, 255, 255, 0.8)' : '0 0 10px rgba(0, 136, 255, 0.8)';
-                }} onMouseLeave={(e) => {
-                  e.currentTarget.style.color = darkMode ? '#ffffff' : '#000000';
-                  e.currentTarget.style.textShadow = 'none';
+                  transition: 'all 0.3s'
                 }}>About</a>
                 <a href="#videos" style={{
                   color: darkMode ? '#ffffff' : '#000000',
                   textDecoration: 'none',
                   fontWeight: '500',
-                  fontSize: '15px',
+                  fontSize: '14px',
                   letterSpacing: '0.5px',
                   transition: 'all 0.3s'
-                }} onMouseEnter={(e) => {
-                  e.currentTarget.style.color = darkMode ? '#00ffff' : '#0088ff';
-                  e.currentTarget.style.textShadow = darkMode ? '0 0 10px rgba(0, 255, 255, 0.8)' : '0 0 10px rgba(0, 136, 255, 0.8)';
-                }} onMouseLeave={(e) => {
-                  e.currentTarget.style.color = darkMode ? '#ffffff' : '#000000';
-                  e.currentTarget.style.textShadow = 'none';
                 }}>Videos</a>
                 <a href="#chatbots" style={{
                   color: darkMode ? '#ffffff' : '#000000',
                   textDecoration: 'none',
                   fontWeight: '500',
-                  fontSize: '15px',
+                  fontSize: '14px',
                   letterSpacing: '0.5px',
                   transition: 'all 0.3s'
-                }} onMouseEnter={(e) => {
-                  e.currentTarget.style.color = darkMode ? '#00ffff' : '#0088ff';
-                  e.currentTarget.style.textShadow = darkMode ? '0 0 10px rgba(0, 255, 255, 0.8)' : '0 0 10px rgba(0, 136, 255, 0.8)';
-                }} onMouseLeave={(e) => {
-                  e.currentTarget.style.color = darkMode ? '#ffffff' : '#000000';
-                  e.currentTarget.style.textShadow = 'none';
                 }}>AI Chatbots</a>
                 <a href="#contact" style={{
                   color: darkMode ? '#ffffff' : '#000000',
                   textDecoration: 'none',
                   fontWeight: '500',
-                  fontSize: '15px',
+                  fontSize: '14px',
                   letterSpacing: '0.5px',
                   transition: 'all 0.3s'
-                }} onMouseEnter={(e) => {
-                  e.currentTarget.style.color = darkMode ? '#00ffff' : '#0088ff';
-                  e.currentTarget.style.textShadow = darkMode ? '0 0 10px rgba(0, 255, 255, 0.8)' : '0 0 10px rgba(0, 136, 255, 0.8)';
-                }} onMouseLeave={(e) => {
-                  e.currentTarget.style.color = darkMode ? '#ffffff' : '#000000';
-                  e.currentTarget.style.textShadow = 'none';
                 }}>Contact</a>
                 <a href="/channels" style={{
                   color: darkMode ? '#ffffff' : '#000000',
                   textDecoration: 'none',
                   fontWeight: '500',
-                  fontSize: '15px',
+                  fontSize: '14px',
                   letterSpacing: '0.5px',
                   transition: 'all 0.3s'
-                }} onMouseEnter={(e) => {
-                  e.currentTarget.style.color = darkMode ? '#00ffff' : '#0088ff';
-                  e.currentTarget.style.textShadow = darkMode ? '0 0 10px rgba(0, 255, 255, 0.8)' : '0 0 10px rgba(0, 136, 255, 0.8)';
-                }} onMouseLeave={(e) => {
-                  e.currentTarget.style.color = darkMode ? '#ffffff' : '#000000';
-                  e.currentTarget.style.textShadow = 'none';
                 }}>Channels</a>
                 <button
                   onClick={() => setDarkMode(!darkMode)}
                   style={{
-                    padding: '10px',
-                    borderRadius: '8px',
+                    padding: '8px',
+                    borderRadius: '6px',
                     background: darkMode
                       ? 'rgba(0, 255, 255, 0.1)'
                       : 'rgba(0, 136, 255, 0.1)',
@@ -365,34 +334,95 @@ export default function Home() {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    transition: 'all 0.3s ease',
-                    boxShadow: darkMode
-                      ? '0 0 10px rgba(0, 255, 255, 0.2)'
-                      : '0 0 10px rgba(0, 136, 255, 0.2)'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = darkMode ? 'rgba(0, 255, 255, 0.2)' : 'rgba(0, 136, 255, 0.2)';
-                    e.currentTarget.style.boxShadow = darkMode ? '0 0 20px rgba(0, 255, 255, 0.4)' : '0 0 20px rgba(0, 136, 255, 0.4)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = darkMode ? 'rgba(0, 255, 255, 0.1)' : 'rgba(0, 136, 255, 0.1)';
-                    e.currentTarget.style.boxShadow = darkMode ? '0 0 10px rgba(0, 255, 255, 0.2)' : '0 0 10px rgba(0, 136, 255, 0.2)';
+                    transition: 'all 0.3s ease'
                   }}
                   aria-label="Toggle dark mode"
                 >
-                  {darkMode ? <Sun size={20} color="#00ffff" /> : <Moon size={20} color="#0088ff" />}
+                  {darkMode ? <Sun size={18} color="#00ffff" /> : <Moon size={18} color="#0088ff" />}
                 </button>
               </div>
             </div>
+
+            {/* Mobile Menu Dropdown */}
+            {mobileMenuOpen && (
+              <div style={{
+                display: window.innerWidth < 768 ? 'flex' : 'none',
+                flexDirection: 'column',
+                gap: '16px',
+                padding: '16px 0',
+                borderTop: darkMode
+                  ? '1px solid rgba(0, 255, 255, 0.2)'
+                  : '1px solid rgba(0, 136, 255, 0.2)'
+              }}>
+                <a href="/about" style={{
+                  color: darkMode ? '#ffffff' : '#000000',
+                  textDecoration: 'none',
+                  fontWeight: '500',
+                  fontSize: '16px',
+                  padding: '8px 0'
+                }}>About</a>
+                <a href="#videos" style={{
+                  color: darkMode ? '#ffffff' : '#000000',
+                  textDecoration: 'none',
+                  fontWeight: '500',
+                  fontSize: '16px',
+                  padding: '8px 0'
+                }} onClick={() => setMobileMenuOpen(false)}>Videos</a>
+                <a href="#chatbots" style={{
+                  color: darkMode ? '#ffffff' : '#000000',
+                  textDecoration: 'none',
+                  fontWeight: '500',
+                  fontSize: '16px',
+                  padding: '8px 0'
+                }} onClick={() => setMobileMenuOpen(false)}>AI Chatbots</a>
+                <a href="#contact" style={{
+                  color: darkMode ? '#ffffff' : '#000000',
+                  textDecoration: 'none',
+                  fontWeight: '500',
+                  fontSize: '16px',
+                  padding: '8px 0'
+                }} onClick={() => setMobileMenuOpen(false)}>Contact</a>
+                <a href="/channels" style={{
+                  color: darkMode ? '#ffffff' : '#000000',
+                  textDecoration: 'none',
+                  fontWeight: '500',
+                  fontSize: '16px',
+                  padding: '8px 0'
+                }}>Channels</a>
+                <button
+                  onClick={() => setDarkMode(!darkMode)}
+                  style={{
+                    padding: '12px',
+                    borderRadius: '6px',
+                    background: darkMode
+                      ? 'rgba(0, 255, 255, 0.1)'
+                      : 'rgba(0, 136, 255, 0.1)',
+                    border: darkMode
+                      ? '1px solid rgba(0, 255, 255, 0.3)'
+                      : '1px solid rgba(0, 136, 255, 0.3)',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '8px',
+                    color: darkMode ? '#00ffff' : '#0088ff',
+                    fontWeight: '600',
+                    fontSize: '14px'
+                  }}
+                >
+                  {darkMode ? <><Sun size={18} /> Light Mode</> : <><Moon size={18} /> Dark Mode</>}
+                </button>
+              </div>
+            )}
           </div>
         </nav>
 
         {/* Hero Section */}
         <section style={{
-          paddingTop: '160px',
-          paddingBottom: '120px',
-          padding: '160px 24px 120px',
-          minHeight: '100vh',
+          paddingTop: '120px',
+          paddingBottom: '80px',
+          padding: '120px 16px 80px',
+          minHeight: window.innerWidth < 768 ? 'auto' : '100vh',
           display: 'flex',
           alignItems: 'center',
           position: 'relative'
@@ -404,11 +434,11 @@ export default function Home() {
           }}>
             <div style={{
               textAlign: 'center',
-              marginBottom: '60px'
+              marginBottom: '40px'
             }}>
               <div style={{
                 display: 'inline-block',
-                padding: '8px 20px',
+                padding: '6px 16px',
                 background: darkMode
                   ? 'rgba(0, 255, 255, 0.1)'
                   : 'rgba(0, 136, 255, 0.1)',
@@ -416,54 +446,61 @@ export default function Home() {
                   ? '1px solid rgba(0, 255, 255, 0.3)'
                   : '1px solid rgba(0, 136, 255, 0.3)',
                 borderRadius: '50px',
-                marginBottom: '32px',
+                marginBottom: '24px',
                 boxShadow: darkMode
                   ? '0 0 20px rgba(0, 255, 255, 0.2)'
                   : '0 0 20px rgba(0, 136, 255, 0.2)'
               }}>
                 <span style={{
                   color: darkMode ? '#00ffff' : '#0088ff',
-                  fontSize: '14px',
+                  fontSize: '12px',
                   fontWeight: '600',
                   letterSpacing: '1px',
                   textTransform: 'uppercase'
                 }}>
-                  <Code2 size={16} style={{ display: 'inline', marginRight: '8px', verticalAlign: 'middle' }} />
+                  <Code2 size={14} style={{ display: 'inline', marginRight: '6px', verticalAlign: 'middle' }} />
                   Next-Gen Content Platform
                 </span>
               </div>
               
               <h1 style={{
-                fontSize: '72px',
+                fontSize: window.innerWidth < 768 ? '36px' : '64px',
                 fontWeight: '800',
                 color: darkMode ? '#ffffff' : '#000000',
-                marginBottom: '24px',
+                marginBottom: '16px',
                 lineHeight: '1.1',
-                letterSpacing: '-2px'
+                letterSpacing: '-1px'
               }}>
                 Welcome to{' '}
                 <span className="neon-text" style={{
                   color: darkMode ? '#00ffff' : '#0088ff',
                   display: 'block',
-                  marginTop: '16px'
+                  marginTop: '12px'
                 }}>
                   We Love Solutions
                 </span>
               </h1>
               
               <p style={{
-                fontSize: '22px',
+                fontSize: window.innerWidth < 768 ? '16px' : '20px',
                 color: darkMode ? '#a0a0a0' : '#666666',
-                marginBottom: '48px',
+                marginBottom: '32px',
                 maxWidth: '800px',
-                margin: '0 auto 48px',
+                margin: '0 auto 32px',
                 lineHeight: '1.6',
-                fontWeight: '400'
+                fontWeight: '400',
+                padding: '0 16px'
               }}>
                 Creating diverse, entertaining, and engaging content powered by cutting-edge technology. From trailers to lifestyle videos, experience the future of digital content.
               </p>
               
-              <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
+              <div style={{ 
+                display: 'flex', 
+                gap: '16px', 
+                justifyContent: 'center', 
+                flexWrap: 'wrap',
+                padding: '0 16px'
+              }}>
                 <a
                   href="https://www.youtube.com/@GARVIT_MORE_THING"
                   target="_blank"
@@ -472,67 +509,47 @@ export default function Home() {
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
-                    gap: '12px',
+                    gap: '10px',
                     background: darkMode
                       ? 'linear-gradient(135deg, #00ffff, #0088ff)'
                       : 'linear-gradient(135deg, #0088ff, #00ccff)',
                     color: '#000000',
-                    padding: '16px 32px',
+                    padding: window.innerWidth < 768 ? '14px 24px' : '16px 32px',
                     borderRadius: '8px',
                     textDecoration: 'none',
                     fontWeight: '700',
-                    fontSize: '16px',
+                    fontSize: window.innerWidth < 768 ? '14px' : '16px',
                     letterSpacing: '0.5px',
                     border: 'none',
                     cursor: 'pointer',
                     transition: 'all 0.3s ease',
                     textTransform: 'uppercase'
                   }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-2px)';
-                    e.currentTarget.style.boxShadow = darkMode
-                      ? '0 10px 40px rgba(0, 255, 255, 0.5)'
-                      : '0 10px 40px rgba(0, 136, 255, 0.5)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)';
-                  }}
                 >
-                  <Youtube size={20} />
+                  <Youtube size={18} />
                   Subscribe Now
                 </a>
                 <button style={{
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '12px',
+                  gap: '10px',
                   background: 'transparent',
                   color: darkMode ? '#00ffff' : '#0088ff',
-                  padding: '16px 32px',
+                  padding: window.innerWidth < 768 ? '14px 24px' : '16px 32px',
                   borderRadius: '8px',
                   border: darkMode
                     ? '2px solid rgba(0, 255, 255, 0.5)'
                     : '2px solid rgba(0, 136, 255, 0.5)',
                   cursor: 'pointer',
                   fontWeight: '700',
-                  fontSize: '16px',
+                  fontSize: window.innerWidth < 768 ? '14px' : '16px',
                   letterSpacing: '0.5px',
                   transition: 'all 0.3s ease',
                   textTransform: 'uppercase'
                 }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = darkMode ? 'rgba(0, 255, 255, 0.1)' : 'rgba(0, 136, 255, 0.1)';
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow = darkMode
-                    ? '0 10px 40px rgba(0, 255, 255, 0.3)'
-                    : '0 10px 40px rgba(0, 136, 255, 0.3)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'transparent';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = 'none';
-                }}>
+                onClick={() => document.getElementById('videos')?.scrollIntoView({ behavior: 'smooth' })}>
                   Explore Content
-                  <ArrowRight size={20} />
+                  <ArrowRight size={18} />
                 </button>
               </div>
             </div>
@@ -540,14 +557,15 @@ export default function Home() {
             {/* Tech Stats Grid */}
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-              gap: '24px',
-              marginTop: '80px'
+              gridTemplateColumns: window.innerWidth < 768 ? '1fr' : 'repeat(auto-fit, minmax(250px, 1fr))',
+              gap: '20px',
+              marginTop: '60px',
+              padding: '0 16px'
             }}>
               {[
-                { icon: <Users size={32} />, value: '1,715', label: 'Subscribers', color: darkMode ? '#00ffff' : '#0088ff' },
-                { icon: <Play size={32} />, value: '80+', label: 'Videos', color: darkMode ? '#00ffff' : '#0088ff' },
-                { icon: <Cpu size={32} />, value: 'AI', label: 'Powered', color: darkMode ? '#00ffff' : '#0088ff' }
+                { icon: <Users size={28} />, value: '1,715', label: 'Subscribers', color: darkMode ? '#00ffff' : '#0088ff' },
+                { icon: <Play size={28} />, value: '80+', label: 'Videos', color: darkMode ? '#00ffff' : '#0088ff' },
+                { icon: <Cpu size={28} />, value: 'AI', label: 'Powered', color: darkMode ? '#00ffff' : '#0088ff' }
               ].map((stat, index) => (
                 <div
                   key={index}
@@ -559,41 +577,28 @@ export default function Home() {
                       ? '1px solid rgba(0, 255, 255, 0.2)'
                       : '1px solid rgba(0, 136, 255, 0.2)',
                     borderRadius: '12px',
-                    padding: '32px',
+                    padding: '24px',
                     textAlign: 'center',
-                    transition: 'all 0.3s ease',
-                    cursor: 'pointer'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = darkMode ? 'rgba(0, 255, 255, 0.1)' : 'rgba(0, 136, 255, 0.1)';
-                    e.currentTarget.style.transform = 'translateY(-5px)';
-                    e.currentTarget.style.boxShadow = darkMode
-                      ? '0 10px 30px rgba(0, 255, 255, 0.2)'
-                      : '0 10px 30px rgba(0, 136, 255, 0.2)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = darkMode ? 'rgba(0, 255, 255, 0.05)' : 'rgba(0, 136, 255, 0.05)';
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = 'none';
+                    transition: 'all 0.3s ease'
                   }}
                 >
                   <div style={{
                     color: stat.color,
-                    marginBottom: '16px',
+                    marginBottom: '12px',
                     display: 'flex',
                     justifyContent: 'center'
                   }}>
                     {stat.icon}
                   </div>
                   <div style={{
-                    fontSize: '42px',
+                    fontSize: '36px',
                     fontWeight: '800',
                     color: darkMode ? '#ffffff' : '#000000',
                     marginBottom: '8px',
                     letterSpacing: '-1px'
                   }}>{stat.value}</div>
                   <div style={{
-                    fontSize: '14px',
+                    fontSize: '13px',
                     color: darkMode ? '#808080' : '#666666',
                     fontWeight: '600',
                     letterSpacing: '1px',
@@ -607,16 +612,16 @@ export default function Home() {
 
         {/* Videos Section */}
         <section id="videos" style={{
-          padding: '120px 24px',
+          padding: window.innerWidth < 768 ? '60px 16px' : '100px 24px',
           position: 'relative'
         }}>
           <div style={{
             maxWidth: '1280px',
             margin: '0 auto'
           }}>
-            <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+            <div style={{ textAlign: 'center', marginBottom: '48px' }}>
               <h2 style={{
-                fontSize: '48px',
+                fontSize: window.innerWidth < 768 ? '32px' : '48px',
                 fontWeight: '800',
                 color: darkMode ? '#ffffff' : '#000000',
                 marginBottom: '16px',
@@ -640,8 +645,8 @@ export default function Home() {
 
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: '32px'
+              gridTemplateColumns: window.innerWidth < 768 ? '1fr' : 'repeat(auto-fit, minmax(280px, 1fr))',
+              gap: '24px'
             }}>
               {videos.map((video) => (
                 <a
@@ -663,22 +668,10 @@ export default function Home() {
                     textDecoration: 'none',
                     display: 'block'
                   }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-8px)';
-                    e.currentTarget.style.boxShadow = darkMode
-                      ? '0 20px 40px rgba(0, 255, 255, 0.2)'
-                      : '0 20px 40px rgba(0, 136, 255, 0.2)';
-                    e.currentTarget.style.borderColor = darkMode ? 'rgba(0, 255, 255, 0.5)' : 'rgba(0, 136, 255, 0.5)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = 'none';
-                    e.currentTarget.style.borderColor = darkMode ? 'rgba(0, 255, 255, 0.2)' : 'rgba(0, 136, 255, 0.2)';
-                  }}
                 >
                   <div style={{
                     position: 'relative',
-                    height: '200px',
+                    height: '180px',
                     background: '#000',
                     overflow: 'hidden'
                   }}>
@@ -689,8 +682,7 @@ export default function Home() {
                       style={{
                         width: '100%',
                         height: '100%',
-                        objectFit: 'cover',
-                        transition: 'transform 0.3s ease'
+                        objectFit: 'cover'
                       }}
                     />
                     <div style={{
@@ -698,8 +690,8 @@ export default function Home() {
                       top: '50%',
                       left: '50%',
                       transform: 'translate(-50%, -50%)',
-                      width: '60px',
-                      height: '60px',
+                      width: '50px',
+                      height: '50px',
                       background: darkMode
                         ? 'rgba(0, 255, 255, 0.9)'
                         : 'rgba(0, 136, 255, 0.9)',
@@ -711,12 +703,12 @@ export default function Home() {
                         ? '0 0 30px rgba(0, 255, 255, 0.6)'
                         : '0 0 30px rgba(0, 136, 255, 0.6)'
                     }}>
-                      <Play size={28} color="#000" fill="#000" />
+                      <Play size={24} color="#000" fill="#000" />
                     </div>
                   </div>
-                  <div style={{ padding: '24px' }}>
+                  <div style={{ padding: '20px' }}>
                     <h3 style={{
-                      fontSize: '18px',
+                      fontSize: '16px',
                       fontWeight: '700',
                       color: darkMode ? '#ffffff' : '#000000',
                       marginBottom: '12px',
@@ -727,11 +719,11 @@ export default function Home() {
                       alignItems: 'center',
                       gap: '8px',
                       color: darkMode ? '#00ffff' : '#0088ff',
-                      fontSize: '14px',
+                      fontSize: '13px',
                       fontWeight: '600'
                     }}>
                       Watch Now
-                      <ExternalLink size={16} />
+                      <ExternalLink size={14} />
                     </div>
                   </div>
                 </a>
@@ -742,7 +734,7 @@ export default function Home() {
 
         {/* AI Chatbots Section */}
         <section id="chatbots" style={{
-          padding: '120px 24px',
+          padding: window.innerWidth < 768 ? '60px 16px' : '100px 24px',
           background: darkMode
             ? 'rgba(0, 255, 255, 0.02)'
             : 'rgba(0, 136, 255, 0.02)'
@@ -751,9 +743,9 @@ export default function Home() {
             maxWidth: '1280px',
             margin: '0 auto'
           }}>
-            <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+            <div style={{ textAlign: 'center', marginBottom: '48px' }}>
               <h2 style={{
-                fontSize: '48px',
+                fontSize: window.innerWidth < 768 ? '32px' : '48px',
                 fontWeight: '800',
                 color: darkMode ? '#ffffff' : '#000000',
                 marginBottom: '16px',
@@ -774,10 +766,11 @@ export default function Home() {
                   : '0 0 20px rgba(0, 136, 255, 0.5)'
               }}></div>
               <p style={{
-                fontSize: '20px',
+                fontSize: window.innerWidth < 768 ? '16px' : '18px',
                 color: darkMode ? '#a0a0a0' : '#666666',
                 maxWidth: '700px',
-                margin: '0 auto'
+                margin: '0 auto',
+                padding: '0 16px'
               }}>
                 Powered by advanced AI technology to assist you 24/7
               </p>
@@ -785,8 +778,8 @@ export default function Home() {
 
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
-              gap: '32px'
+              gridTemplateColumns: window.innerWidth < 768 ? '1fr' : 'repeat(auto-fit, minmax(350px, 1fr))',
+              gap: '24px'
             }}>
               {chatbots.map((bot) => (
                 <div
@@ -799,51 +792,40 @@ export default function Home() {
                       ? '1px solid rgba(0, 255, 255, 0.2)'
                       : '1px solid rgba(0, 136, 255, 0.2)',
                     borderRadius: '16px',
-                    padding: '40px',
+                    padding: '32px',
                     transition: 'all 0.3s ease',
                     position: 'relative',
                     overflow: 'hidden'
                   }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-8px)';
-                    e.currentTarget.style.boxShadow = darkMode
-                      ? '0 20px 50px rgba(0, 255, 255, 0.2)'
-                      : '0 20px 50px rgba(0, 136, 255, 0.2)';
-                    e.currentTarget.style.borderColor = darkMode ? 'rgba(0, 255, 255, 0.5)' : 'rgba(0, 136, 255, 0.5)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = 'none';
-                    e.currentTarget.style.borderColor = darkMode ? 'rgba(0, 255, 255, 0.2)' : 'rgba(0, 136, 255, 0.2)';
-                  }}
                 >
                   <div style={{
-                    fontSize: '48px',
-                    marginBottom: '24px'
+                    fontSize: '40px',
+                    marginBottom: '20px'
                   }}>{bot.icon}</div>
                   
                   <h3 style={{
-                    fontSize: '24px',
+                    fontSize: window.innerWidth < 768 ? '20px' : '22px',
                     fontWeight: '800',
                     color: darkMode ? '#ffffff' : '#000000',
                     marginBottom: '16px',
-                    letterSpacing: '-0.5px'
+                    letterSpacing: '-0.5px',
+                    lineHeight: '1.3'
                   }}>{bot.name}</h3>
                   
                   <p style={{
                     color: darkMode ? '#a0a0a0' : '#666666',
                     marginBottom: '24px',
                     lineHeight: '1.6',
-                    fontSize: '15px'
+                    fontSize: '14px'
                   }}>
                     {bot.description}
                   </p>
 
                   <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(2, 1fr)',
-                    gap: '12px',
-                    marginBottom: '32px'
+                    gridTemplateColumns: window.innerWidth < 768 ? '1fr' : 'repeat(2, 1fr)',
+                    gap: '10px',
+                    marginBottom: '28px'
                   }}>
                     {bot.features.map((feature, index) => (
                       <div
@@ -853,11 +835,11 @@ export default function Home() {
                           alignItems: 'center',
                           gap: '8px',
                           color: darkMode ? '#808080' : '#666666',
-                          fontSize: '13px',
+                          fontSize: '12px',
                           fontWeight: '500'
                         }}
                       >
-                        <span style={{ color: darkMode ? '#00ffff' : '#0088ff', fontSize: '16px' }}>✓</span>
+                        <span style={{ color: darkMode ? '#00ffff' : '#0088ff', fontSize: '14px' }}>✓</span>
                         <span>{feature}</span>
                       </div>
                     ))}
@@ -872,17 +854,17 @@ export default function Home() {
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      gap: '12px',
+                      gap: '10px',
                       background: darkMode
                         ? 'linear-gradient(135deg, #00ffff, #0088ff)'
                         : 'linear-gradient(135deg, #0088ff, #00ccff)',
                       color: '#000000',
-                      padding: '16px 32px',
+                      padding: '14px 28px',
                       borderRadius: '8px',
                       border: 'none',
                       cursor: 'pointer',
                       fontWeight: '700',
-                      fontSize: '15px',
+                      fontSize: '14px',
                       letterSpacing: '0.5px',
                       textDecoration: 'none',
                       transition: 'all 0.3s ease',
@@ -891,20 +873,8 @@ export default function Home() {
                         ? '0 10px 30px rgba(0, 255, 255, 0.3)'
                         : '0 10px 30px rgba(0, 136, 255, 0.3)'
                     }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = 'scale(1.05)';
-                      e.currentTarget.style.boxShadow = darkMode
-                        ? '0 15px 40px rgba(0, 255, 255, 0.5)'
-                        : '0 15px 40px rgba(0, 136, 255, 0.5)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'scale(1)';
-                      e.currentTarget.style.boxShadow = darkMode
-                        ? '0 10px 30px rgba(0, 255, 255, 0.3)'
-                        : '0 10px 30px rgba(0, 136, 255, 0.3)';
-                    }}
                   >
-                    <MessageSquare size={20} />
+                    <MessageSquare size={18} />
                     Launch Chat
                   </a>
                 </div>
@@ -915,7 +885,7 @@ export default function Home() {
 
         {/* Contact Section */}
         <section id="contact" style={{
-          padding: '120px 24px'
+          padding: window.innerWidth < 768 ? '60px 16px' : '100px 24px'
         }}>
           <div style={{
             maxWidth: '1280px',
@@ -923,7 +893,7 @@ export default function Home() {
             textAlign: 'center'
           }}>
             <h2 style={{
-              fontSize: '48px',
+              fontSize: window.innerWidth < 768 ? '32px' : '48px',
               fontWeight: '800',
               color: darkMode ? '#ffffff' : '#000000',
               marginBottom: '16px',
@@ -937,7 +907,7 @@ export default function Home() {
               background: darkMode
                 ? 'linear-gradient(90deg, #00ffff, #0088ff)'
                 : 'linear-gradient(90deg, #0088ff, #00ccff)',
-              margin: '0 auto 48px',
+              margin: '0 auto 40px',
               borderRadius: '2px',
               boxShadow: darkMode
                 ? '0 0 20px rgba(0, 255, 255, 0.5)'
@@ -945,17 +915,18 @@ export default function Home() {
             }}></div>
 
             <div style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              justifyContent: 'center',
-              gap: '24px',
-              marginTop: '48px'
+              display: 'grid',
+              gridTemplateColumns: window.innerWidth < 768 ? '1fr' : 'repeat(2, 1fr)',
+              gap: '16px',
+              marginTop: '40px',
+              maxWidth: '600px',
+              margin: '40px auto 0'
             }}>
               {[
-                { icon: <Youtube size={24} />, label: 'YouTube', url: 'https://www.youtube.com/@GARVIT_MORE_THING' },
-                { icon: <Instagram size={24} />, label: 'Instagram', url: 'https://instagram.com/iamthesharma29' },
-                { icon: <Twitter size={24} />, label: 'Twitter', url: 'https://twitter.com/FighterSho97816' },
-                { icon: <Mail size={24} />, label: 'Email', url: 'mailto:fightershooter3@gmail.com' }
+                { icon: <Youtube size={20} />, label: 'YouTube', url: 'https://www.youtube.com/@GARVIT_MORE_THING' },
+                { icon: <Instagram size={20} />, label: 'Instagram', url: 'https://instagram.com/iamthesharma29' },
+                { icon: <Twitter size={20} />, label: 'Twitter', url: 'https://twitter.com/FighterSho97816' },
+                { icon: <Mail size={20} />, label: 'Email', url: 'mailto:fightershooter3@gmail.com' }
               ].map((social, index) => (
                 <a
                   key={index}
@@ -965,8 +936,9 @@ export default function Home() {
                   style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '12px',
-                    padding: '16px 32px',
+                    justifyContent: 'center',
+                    gap: '10px',
+                    padding: '14px 24px',
                     background: darkMode
                       ? 'rgba(0, 255, 255, 0.05)'
                       : 'rgba(0, 136, 255, 0.05)',
@@ -977,21 +949,9 @@ export default function Home() {
                     color: darkMode ? '#00ffff' : '#0088ff',
                     textDecoration: 'none',
                     fontWeight: '600',
-                    fontSize: '15px',
+                    fontSize: '14px',
                     transition: 'all 0.3s ease',
                     cursor: 'pointer'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = darkMode ? 'rgba(0, 255, 255, 0.1)' : 'rgba(0, 136, 255, 0.1)';
-                    e.currentTarget.style.transform = 'translateY(-3px)';
-                    e.currentTarget.style.boxShadow = darkMode
-                      ? '0 10px 30px rgba(0, 255, 255, 0.2)'
-                      : '0 10px 30px rgba(0, 136, 255, 0.2)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = darkMode ? 'rgba(0, 255, 255, 0.05)' : 'rgba(0, 136, 255, 0.05)';
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = 'none';
                   }}
                 >
                   {social.icon}
@@ -1011,7 +971,7 @@ export default function Home() {
           borderTop: darkMode
             ? '1px solid rgba(0, 255, 255, 0.2)'
             : '1px solid rgba(0, 136, 255, 0.2)',
-          padding: '48px 24px',
+          padding: window.innerWidth < 768 ? '32px 16px' : '48px 24px',
           textAlign: 'center'
         }}>
           <div style={{
@@ -1019,15 +979,15 @@ export default function Home() {
             margin: '0 auto'
           }}>
             <div style={{
-              fontSize: '24px',
+              fontSize: window.innerWidth < 768 ? '18px' : '22px',
               fontWeight: '700',
               color: darkMode ? '#00ffff' : '#0088ff',
-              marginBottom: '16px',
-              letterSpacing: '1px'
+              marginBottom: '12px',
+              letterSpacing: '0.5px'
             }}>We Love Solutions</div>
             <p style={{
               color: darkMode ? '#808080' : '#666666',
-              fontSize: '14px'
+              fontSize: '13px'
             }}>
               © 2025 We Love Solutions. All rights reserved.
             </p>
