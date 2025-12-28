@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     siteName: "Garvit More Things",
     images: [
       {
-        url: "/images/og-image.jpg",
+        url: "/images/cover.jpg",
         width: 1200,
         height: 630,
         alt: "Garvit More Things",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     title: "Garvit More Things - Content Creator & YouTuber",
     description: "Creating diverse, entertaining, and engaging content. Any Thing! You Want.",
     creator: "@FighterSho97816",
-    images: ["/images/og-image.jpg"],
+    images: ["/images/cover.jpg"],
   },
   robots: {
     index: true,
@@ -62,15 +62,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Google AdSense - Replace with your AdSense Publisher ID */}
+        {/* Google AdSense - Publisher ID updated */}
         <Script
           async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8004301087271810"
           crossOrigin="anonymous"
           strategy="afterInteractive"
         />
         
-        {/* Google Analytics (Optional but recommended for tracking) */}
+        {/* Google Analytics (Optional) */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
           strategy="afterInteractive"
